@@ -21,8 +21,8 @@ public class Comment {
 
     private String content;
 
-    @Column(name = "topic_id")
-    private Long topicId;
+    @Column(name = "post_id")
+    private Long postId;
 
     @Column(name = "user_id")
     private Long userId;
