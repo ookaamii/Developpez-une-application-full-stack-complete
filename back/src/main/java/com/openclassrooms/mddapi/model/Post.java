@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @AllArgsConstructor // Pour créer un constructeur avec tous les champs
@@ -28,8 +29,10 @@ public class Post {
     @Column(name = "topic_id")
     private Long topicId;
 
-    @CreationTimestamp
+    @Column(name = "user_id")
+    private Long userId;
+
     @Column(updatable = false, name = "created_at")
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
 }
