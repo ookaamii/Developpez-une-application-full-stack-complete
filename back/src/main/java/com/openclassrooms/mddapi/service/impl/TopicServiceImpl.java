@@ -23,4 +23,5 @@ public class TopicServiceImpl implements TopicService {
         List<Topic> topics = topicRepository.findAll();
         return topicMapper.topicsToTopicDTOs(topics);
     }
+
 }
