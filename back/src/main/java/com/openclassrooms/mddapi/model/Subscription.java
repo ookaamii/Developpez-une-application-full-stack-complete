@@ -16,10 +16,12 @@ public class Subscription {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "topic_id")
-    private Long topicId;
+    @ManyToOne
+    @JoinColumn(name = "topic_id")
+    private Topic topic;
 
-    @Column(name = "user_id")
-    private Long userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
 }

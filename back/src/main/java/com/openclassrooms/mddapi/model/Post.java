@@ -24,11 +24,13 @@ public class Post {
 
     private String content;
 
-    @Column(name = "topic_id")
-    private Long topicId;
+    @ManyToOne
+    @JoinColumn(name = "topic_id")
+    private Topic topic;
 
-    @Column(name = "user_id")
-    private Long userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Column(updatable = false, name = "created_at")
     @CreationTimestamp
