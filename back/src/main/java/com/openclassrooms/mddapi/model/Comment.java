@@ -29,6 +29,7 @@ public class Comment {
     private Long userId;
 
     @Column(updatable = false, name = "created_at")
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
 }

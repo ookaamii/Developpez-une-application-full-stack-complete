@@ -22,8 +22,6 @@ public class Post {
 
     private String title;
 
-    private String author;
-
     private String content;
 
     @Column(name = "topic_id")
@@ -33,6 +31,7 @@ public class Post {
     private Long userId;
 
     @Column(updatable = false, name = "created_at")
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
 }
