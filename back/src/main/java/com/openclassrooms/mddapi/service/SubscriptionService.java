@@ -6,4 +6,6 @@ public interface SubscriptionService {
 
     ResponseDTO subTopic(Long id);
 
+    ResponseDTO unsubscribeTopic(Long id);
+
 }

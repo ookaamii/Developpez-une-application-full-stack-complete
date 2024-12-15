@@ -18,4 +18,6 @@ public class Topic {
 
     private String topic;
 
+    private String description;
+
 }
