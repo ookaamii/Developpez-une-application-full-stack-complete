@@ -15,4 +15,6 @@ public class TopicDTO {
     @NotNull
     private String topic;
 
+    private String description;
+
 }

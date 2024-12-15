@@ -1,6 +1,8 @@
 package com.openclassrooms.mddapi.service.impl;
 
+import com.openclassrooms.mddapi.dto.UserUpdateDTO;
 import com.openclassrooms.mddapi.dto.request.LoginDTO;
+import com.openclassrooms.mddapi.dto.response.ResponseDTO;
 import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.dto.request.RegisterDTO;
 import com.openclassrooms.mddapi.dto.response.AuthDTO;
@@ -54,6 +56,28 @@ public class UserServiceImpl implements UserService {
         String email = userDetails.getUsername();
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("Utilisateur non trouvé avec cet email : " + email));
+    }
+
+    @Override
+    public UserUpdateDTO getProfile() {
+        // Récupérer l'utilisateur connecté
+        User user = getAuthenticatedUser();
+
+        return userMapper.userToUserDTO(user);
+    }
+
+    @Override
+    public ResponseDTO update(UserUpdateDTO userDTO) {
+        // Récupérer l'utilisateur connecté
+        User user = getAuthenticatedUser();
+
+        // Mettre à jour les champs nécessaires
+        user.setUsername(userDTO.getUsername());
+        user.setEmail(userDTO.getEmail());
+
+        userRepository.save(user);
+        
+        return new ResponseDTO("Votre profil a été modifié avec succès !");
     }
 
     private void validateRegisterData(RegisterDTO registerDTO) {
