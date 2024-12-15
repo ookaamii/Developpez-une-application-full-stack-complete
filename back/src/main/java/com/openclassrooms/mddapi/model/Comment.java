@@ -22,11 +22,16 @@ public class Comment {
 
     private String content;
 
-    @Column(name = "post_id")
-    private Long postId;
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    private Post post;
 
-    @Column(name = "user_id")
+    @Column(name = "user_id", insertable = false, updatable = false) // Indique que ce champ est uniquement en lecture
     private Long userId;
+
+    @ManyToOne(fetch = FetchType.LAZY) // Relation JPA avec l'entité User
+    @JoinColumn(name = "user_id") // Jointure sur la colonne user_id
+    private User user;
 
     @Column(updatable = false, name = "created_at")
     @CreationTimestamp
