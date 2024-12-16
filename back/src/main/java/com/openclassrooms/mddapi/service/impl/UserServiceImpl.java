@@ -1,5 +1,7 @@
 package com.openclassrooms.mddapi.service.impl;
 
+import com.openclassrooms.mddapi.configuration.exception.BadRequestException;
+import com.openclassrooms.mddapi.configuration.exception.NotFoundException;
 import com.openclassrooms.mddapi.dto.UserUpdateDTO;
 import com.openclassrooms.mddapi.dto.request.LoginDTO;
 import com.openclassrooms.mddapi.dto.response.ResponseDTO;
@@ -55,7 +57,7 @@ public class UserServiceImpl implements UserService {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String email = userDetails.getUsername();
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("Utilisateur non trouvé avec cet email : " + email));
+                .orElseThrow(() -> new NotFoundException("Utilisateur non trouvé"));
     }
 
     @Override
@@ -82,7 +84,7 @@ public class UserServiceImpl implements UserService {
 
     private void validateRegisterData(RegisterDTO registerDTO) {
         if (userRepository.existsByEmail(registerDTO.getEmail())) {
-            throw new IllegalArgumentException("Un utilisateur avec cet email existe déjà.");
+            throw new BadRequestException("Un utilisateur avec cet email existe déjà.");
         }
     }
 

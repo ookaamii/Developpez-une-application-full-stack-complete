@@ -15,7 +15,6 @@ import java.util.List;
 public class TopicServiceImpl implements TopicService {
 
     private final TopicRepository topicRepository;
-
     private final TopicMapper topicMapper;
 
     @Override

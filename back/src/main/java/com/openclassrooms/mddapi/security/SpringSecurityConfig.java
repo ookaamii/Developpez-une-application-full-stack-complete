@@ -3,9 +3,7 @@
  */
 package com.openclassrooms.mddapi.security;
 
-import com.openclassrooms.mddapi.security.JwtAuthFilter;
 import com.openclassrooms.mddapi.security.service.UserDetailsServiceImpl;
-import com.openclassrooms.mddapi.security.JwtUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

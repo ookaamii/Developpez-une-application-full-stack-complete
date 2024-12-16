@@ -1,5 +1,6 @@
 package com.openclassrooms.mddapi.service.impl;
 
+import com.openclassrooms.mddapi.configuration.exception.NotFoundException;
 import com.openclassrooms.mddapi.dto.response.ResponseDTO;
 import com.openclassrooms.mddapi.dto.response.TopicDTO;
 import com.openclassrooms.mddapi.mapper.TopicMapper;
@@ -21,18 +22,15 @@ import java.util.List;
 public class SubscriptionServiceImpl implements SubscriptionService {
 
     private final SubscriptionRepository subscriptionRepository;
-
     private final TopicRepository topicRepository;
-
     private final UserService userService;
-
     private final TopicMapper topicMapper;
 
     @Override
     public ResponseDTO subTopic(Long id) {
         // Récupérer l'objet Topic à partir de topicId
         Topic topic = topicRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Le thème " + id + " n'existe pas."));
+                .orElseThrow(() -> new NotFoundException("Thème non trouvé"));
 
         Subscription subscription = new Subscription();
         subscription.setTopic(topic);
@@ -47,10 +45,9 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
     @Override
     public ResponseDTO unsubscribeTopic(Long id) {
-
         subscriptionRepository.deleteById(id);
-        return new ResponseDTO("Vous vous êtes désabonné avec succès !");
 
+        return new ResponseDTO("Vous vous êtes désabonné avec succès !");
     }
 
     @Override
@@ -64,7 +61,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
                 .map(sub -> {
                     // Récupérer l'objet Topic à partir de topicId
                     Topic topic = topicRepository.findById(sub.getTopic().getId())
-                            .orElseThrow(() -> new IllegalArgumentException("Le thème " + sub.getTopic().getId() + " n'existe pas."));
+                            .orElseThrow(() -> new NotFoundException("Thème non trouvé"));
                     TopicDTO topicDTO = topicMapper.topicToTopicDTO(topic);
                     return topicDTO;
                 })

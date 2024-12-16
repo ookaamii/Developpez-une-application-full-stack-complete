@@ -1,7 +1,6 @@
 package com.openclassrooms.mddapi.security;
 
 import com.openclassrooms.mddapi.security.service.UserDetailsServiceImpl;
-import com.openclassrooms.mddapi.security.JwtUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,7 +27,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
 
         // Permet de ne pas rentrer dans la vérification de ce filtre si ce sont ces routes, sinon ça provoque une erreur
-        if(request.getServletPath().contains("/auth/register") || request.getServletPath().contains("/auth/login") || request.getServletPath().contains("/uploads/")) {
+        if(request.getServletPath().contains("/auth/register") || request.getServletPath().contains("/auth/login")) {
             filterChain.doFilter(request, response);
             return;
         }

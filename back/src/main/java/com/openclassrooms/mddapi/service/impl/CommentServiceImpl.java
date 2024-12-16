@@ -1,5 +1,6 @@
 package com.openclassrooms.mddapi.service.impl;
 
+import com.openclassrooms.mddapi.configuration.exception.NotFoundException;
 import com.openclassrooms.mddapi.dto.request.CommentRequestDTO;
 import com.openclassrooms.mddapi.dto.response.CommentResponseDTO;
 import com.openclassrooms.mddapi.dto.response.ResponseDTO;
@@ -12,7 +13,6 @@ import com.openclassrooms.mddapi.repository.PostRepository;
 import com.openclassrooms.mddapi.service.CommentService;
 import com.openclassrooms.mddapi.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,16 +22,12 @@ import java.util.List;
 public class CommentServiceImpl implements CommentService {
 
     private final CommentRepository commentRepository;
-
     private final CommentMapper commentMapper;
-
     private final UserService userService;
-
     private final PostRepository postRepository;
 
     @Override
     public List<CommentResponseDTO> findAllByPostId(Long id) {
-
         List<Comment> comments = commentRepository.findAllByPostId(id);
 
         return comments.stream()
@@ -45,13 +41,12 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public ResponseDTO create(Long id, CommentRequestDTO commentDTO) {
-
         // Récupérer l'utilisateur authentifié
         User user = userService.getAuthenticatedUser();
 
         // Récupérer l'entité Post associée au postId
         Post post = postRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("L'article' " + id + " n'existe pas."));
+                .orElseThrow(() -> new NotFoundException("Commentaire non trouvé"));
 
         // Mapper les données du DTO vers l'entité Comment
         Comment comment = commentMapper.commentDTOToComment(commentDTO);
@@ -63,7 +58,6 @@ public class CommentServiceImpl implements CommentService {
         commentRepository.save(comment);
 
         return new ResponseDTO("Votre commentaire a été créé avec succès !");
-
     }
 
 }

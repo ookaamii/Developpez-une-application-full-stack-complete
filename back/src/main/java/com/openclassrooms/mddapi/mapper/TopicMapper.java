@@ -13,7 +13,4 @@ public interface TopicMapper {
 
     List<TopicDTO> topicsToTopicDTOs(List<Topic> topics);
 
-    // Mappe les champs de UserDTO vers User
-    Topic topicDTOToTopic(TopicDTO topicDTO);
-
 }
