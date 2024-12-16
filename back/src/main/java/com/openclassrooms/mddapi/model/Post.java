@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @AllArgsConstructor // Pour créer un constructeur avec tous les champs
 @NoArgsConstructor // Pour créer un constructeur sans paramètres

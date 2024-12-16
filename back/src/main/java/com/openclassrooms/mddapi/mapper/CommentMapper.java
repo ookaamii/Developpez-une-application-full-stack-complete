@@ -5,12 +5,8 @@ import com.openclassrooms.mddapi.dto.response.CommentResponseDTO;
 import com.openclassrooms.mddapi.model.Comment;
 import org.mapstruct.Mapper;
 
-import java.util.List;
-
 @Mapper(componentModel = "spring")
 public interface CommentMapper {
-
-    List<CommentResponseDTO> commentsToCommentsDTO(List<Comment> comments);
 
     CommentResponseDTO commentToCommentDTO(Comment comment);
 
