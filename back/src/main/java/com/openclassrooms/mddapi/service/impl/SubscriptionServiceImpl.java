@@ -28,23 +28,29 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
     @Override
     public ResponseDTO subTopic(Long id) {
-        // Récupérer l'objet Topic à partir de topicId
+        // Récupérer le thème à partir de l'id
         Topic topic = topicRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Thème non trouvé"));
 
+        // Créer un nouvel abonnement
         Subscription subscription = new Subscription();
-        subscription.setTopic(topic);
 
         // Récupérer l'utilisateur connecté
         User user = userService.getAuthenticatedUser();
-        subscription.setUser(user);
 
+        // Définir les valeurs associées
+        subscription.setTopic(topic); // L'objet Topic (thème)
+        subscription.setUser(user); // L'objet User
+
+        // Enregistrer l'entitée abonnement en bdd
         subscriptionRepository.save(subscription);
+
         return new ResponseDTO("Vous vous êtes abonné avec succès !");
     }
 
     @Override
     public ResponseDTO unsubscribeTopic(Long id) {
+        // Supprimer un abonnement
         subscriptionRepository.deleteById(id);
 
         return new ResponseDTO("Vous vous êtes désabonné avec succès !");
@@ -55,11 +61,12 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         // Récupérer l'utilisateur connecté
         User user = userService.getAuthenticatedUser();
 
+        // Récupérer la liste des abonnements de l'utilisateur connecté
         List<Subscription> subs = subscriptionRepository.findAllByUser(user);
 
+        // Pour chaque abonnement, récupérer le thème à partir de topicId + mapping en DTO
         return subs.stream()
                 .map(sub -> {
-                    // Récupérer l'objet Topic à partir de topicId
                     Topic topic = topicRepository.findById(sub.getTopic().getId())
                             .orElseThrow(() -> new NotFoundException("Thème non trouvé"));
                     TopicDTO topicDTO = topicMapper.topicToTopicDTO(topic);

@@ -33,10 +33,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public AuthDTO register(RegisterDTO registerDTO) {
+        // Vérifier que l'email ne soit pas déjà utilisé
         validateRegisterData(registerDTO);
 
+        // Mapping du DTO en User
         User user = userMapper.userRegisterDTOToUser(registerDTO);
+        // Encoder le mot de passe
         user.setPassword(encoder.encode(user.getPassword()));
+
+        // Enregistrer l'entitée User en bdd
         userRepository.save(user);
 
         return new AuthDTO(jwtUtils.generateToken(user.getEmail()));
@@ -44,6 +49,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public AuthDTO login(LoginDTO loginDTO) {
+        // Authentifier l'utilisateur avec le mail et le mot de passe
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginDTO.getEmail(), loginDTO.getPassword())
         );
@@ -53,6 +59,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getAuthenticatedUser() {
+        // Récupérer les infos de l'utilisateur connecté
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String email = userDetails.getUsername();
@@ -73,16 +80,18 @@ public class UserServiceImpl implements UserService {
         // Récupérer l'utilisateur connecté
         User user = getAuthenticatedUser();
 
-        // Mettre à jour les champs nécessaires
+        // Mettre à jour les champs nécessaires de l'utilisateur
         user.setUsername(userDTO.getUsername());
         user.setEmail(userDTO.getEmail());
 
+        // Enregistrer les modifications en bdd
         userRepository.save(user);
         
         return new ResponseDTO("Votre profil a été modifié avec succès !");
     }
 
     private void validateRegisterData(RegisterDTO registerDTO) {
+        // Vérifier que l'email ne soit pas déjà utilisé
         if (userRepository.existsByEmail(registerDTO.getEmail())) {
             throw new BadRequestException("Un utilisateur avec cet email existe déjà.");
         }

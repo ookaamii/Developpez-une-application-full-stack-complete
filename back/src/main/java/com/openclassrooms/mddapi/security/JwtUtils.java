@@ -92,11 +92,6 @@ public class JwtUtils {
         return extractClaim(token, Claims::getExpiration).before(new Date());
     }
 
-    // Vérifie si l'utilisateur est authentifié dans le contexte de sécurité
-    public void checkAuthentication() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    }
-
     // Valide un token brut et journalise les erreurs spécifiques
     public boolean validateJwtToken(String authToken) {
         try {
