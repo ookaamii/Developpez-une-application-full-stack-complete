@@ -26,27 +26,34 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostResponseDTO getPost(Long id) {
+        // Récupérer l'article par son id
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Article non trouvé"));
 
-        // Récupération de l'utilisateur par l'userId du post
+        // Récupérer le nom de l'utilisateur par l'user du post
         String username = post.getUser().getUsername();
 
-        // Utilisation du mapper pour convertir Post en PostResponseDTO avec le nom de l'utilisateur
+        // Utiliser le mapper pour convertir Post en DTO avec le nom de l'utilisateur
         return postMapper.postToPostResponseDTO(post, username);
     }
 
     @Override
     public ResponseDTO create(PostRequestDTO postDTO) {
+        // Convertir le DTO en Post
         Post post = postMapper.postDTOToPost(postDTO);
+
+        // Récupérer l'utilisateur authentifié
         User user = userService.getAuthenticatedUser();
-        // Récupérer l'objet Topic à partir de topicId
+
+        // Récupérer le thème à partir de topicId de l'article
         Topic topic = topicRepository.findById(postDTO.getTopicId())
                 .orElseThrow(() -> new NotFoundException("Thème non trouvé"));
 
-        // Associer le Topic à l'entité Post
-        post.setTopic(topic);
-        post.setUser(user);
+        // Définir les valeurs associées
+        post.setTopic(topic); // L'objet Topic (thème)
+        post.setUser(user); // L'objet User
+
+        // Enregistrer l'entitée article en bdd
         postRepository.save(post);
 
         return new ResponseDTO("L'article a été créé avec succès !");

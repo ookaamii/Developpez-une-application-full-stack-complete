@@ -19,7 +19,9 @@ public class TopicServiceImpl implements TopicService {
 
     @Override
     public List<TopicDTO> findAll() {
+        // Récupérer tous les thèmes
         List<Topic> topics = topicRepository.findAll();
+
         return topicMapper.topicsToTopicDTOs(topics);
     }
 

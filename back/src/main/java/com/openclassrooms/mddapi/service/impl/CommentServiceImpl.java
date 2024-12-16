@@ -28,8 +28,10 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<CommentResponseDTO> findAllByPostId(Long id) {
+        // Récupérer tous les commentaires d'un article
         List<Comment> comments = commentRepository.findAllByPostId(id);
 
+        // Pour chaque commentaire, envoyer aussi en réponse l'auteur du commentaire + mapping en DTO
         return comments.stream()
                 .map(comment -> {
                     CommentResponseDTO commentDTO = commentMapper.commentToCommentDTO(comment);
@@ -44,17 +46,18 @@ public class CommentServiceImpl implements CommentService {
         // Récupérer l'utilisateur authentifié
         User user = userService.getAuthenticatedUser();
 
-        // Récupérer l'entité Post associée au postId
+        // Récupérer l'article associé à l'id
         Post post = postRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Commentaire non trouvé"));
+                .orElseThrow(() -> new NotFoundException("Article non trouvé"));
 
         // Mapper les données du DTO vers l'entité Comment
         Comment comment = commentMapper.commentDTOToComment(commentDTO);
 
-        // Définir les relations et les valeurs associées
-        comment.setPost(post); // Associer l'objet Post
-        comment.setUser(user); // Associer l'objet User
+        // Définir les valeurs associées
+        comment.setPost(post); // L'objet Post (article)
+        comment.setUser(user); // L'objet User
 
+        // Enregistrer l'entitée commentaire en bdd
         commentRepository.save(comment);
 
         return new ResponseDTO("Votre commentaire a été créé avec succès !");
