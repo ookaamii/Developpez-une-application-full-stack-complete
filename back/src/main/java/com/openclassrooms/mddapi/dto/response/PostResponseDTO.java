@@ -1,5 +1,7 @@
 package com.openclassrooms.mddapi.dto.response;
 
+import com.openclassrooms.mddapi.model.Topic;
+import com.openclassrooms.mddapi.model.User;
 import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,10 +23,10 @@ public class PostResponseDTO {
     private String content;
 
     @Column(name = "topic_id")
-    private Long topicId;
+    private Topic topic;
 
     @Column(name = "user_id")
-    private Long userId;
+    private User user;
 
     private LocalDateTime createdAt;
 
