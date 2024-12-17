@@ -1,0 +1,31 @@
+.center {
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  img {
+    @media (max-width: 500px) {
+      width: 40vh;
+    }
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: space-between; /* Aligne les boutons horizontalement */
+    flex-wrap: wrap; /* Permet aux boutons de passer à la ligne */
+    gap: 10em; /* Espacement entre les boutons */
+
+    @media (max-width: 500px) {
+      flex-direction: column; /* Change la disposition en colonne */
+      align-items: center; /* Centre les boutons horizontalement */
+      gap: 2em;
+    }
+
+    button {
+      width: 13em;
+      border-color: black;
+    }
+  }
+}
