@@ -3,7 +3,6 @@ import { HomeComponent } from './features/home/home.component';
 import { LoginComponent } from './features/auth/login/login.component';
 import { RegisterComponent } from './features/auth/register/register.component';
 import { TopicComponent } from './features/topic/topic.component';
-import { AuthGuard } from './services/auth.guard';
 
 const routeConfig: Routes = [
   {
