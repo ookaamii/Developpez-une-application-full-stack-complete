@@ -1,8 +1,23 @@
 .navbar {
     border-bottom: 1px solid black;
     padding: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
     img {
         width: 30vh;
+    }
+
+    .nav-connexion {
+        font-size: 20px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 80vh;
+
+        img.img-account {
+            width: 14vh;
+        }
     }
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthResponse } from '../../../interfaces/authResponse.interface';
@@ -20,7 +20,8 @@ export class LoginComponent {
     password: ['', [Validators.required, Validators.min(8)]]
   });
 
-  constructor(private authService: AuthService, 
+  constructor(private authService: AuthService,
+    private router: Router,
     private fb: FormBuilder) { }
 
   public submit(): void {
@@ -28,6 +29,7 @@ export class LoginComponent {
     this.authService.login(loginRequest).subscribe(
       (response: AuthResponse) => {
         localStorage.setItem('token', response.token);
+        this.router.navigate(['/topics'])
       },
     );
   }

@@ -1,3 +1,12 @@
 <div class="navbar">
     <img src="/assets/logo_p6.png" alt="logo" />
+    <div class="nav-connexion" *ngIf="showNavCo">
+        <span>
+            Articles
+        </span>
+        <span>
+            Thèmes
+        </span>
+        <img [src]="imageUrl" routerLink="/profil" class="img-account">
+    </div>
 </div>
