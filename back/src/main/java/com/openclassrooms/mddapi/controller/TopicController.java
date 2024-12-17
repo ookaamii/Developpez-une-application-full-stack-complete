@@ -16,6 +16,12 @@ public class TopicController {
     private final TopicService topicService;
 
     @GetMapping("/")
+    public ResponseEntity<List<TopicDTO>> findAllNotSub() {
+        List<TopicDTO> topics = topicService.findAllNotSub();
+        return ResponseEntity.ok(topics);
+    }
+
+    @GetMapping("/list_topics")
     public ResponseEntity<List<TopicDTO>> findAll() {
         List<TopicDTO> topics = topicService.findAll();
         return ResponseEntity.ok(topics);
