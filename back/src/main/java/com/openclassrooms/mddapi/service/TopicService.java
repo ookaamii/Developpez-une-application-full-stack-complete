@@ -5,6 +5,8 @@ import java.util.List;
 
 public interface TopicService {
 
+    List<TopicDTO> findAllNotSub();
+
     List<TopicDTO> findAll();
 
 }
