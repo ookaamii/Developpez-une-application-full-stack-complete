@@ -1,1 +1,19 @@
-<p>topic works!</p>
+<div class="topic-list">
+    <!-- Gestion du chargement -->
+    <div *ngIf="isLoading" class="spinner">Chargement...</div>
+  
+    <!-- Gestion des erreurs -->
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  
+    <!-- Liste des topics -->
+    <ul *ngIf="!isLoading && !errorMessage">
+      <li *ngFor="let topic of topics">
+        <h3>{{ topic.topic }}</h3>
+        <p>{{ topic.description }}</p>
+        <button mat-button>S'abonner</button>
+      </li>
+    </ul>
+  </div>
+  
