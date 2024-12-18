@@ -14,8 +14,25 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(userRequest: UserRequest): Observable<AuthResponse> {
-    console.log(userRequest);
     return this.http.post<AuthResponse>(`${this.apiUrl}/login`, userRequest);
   }
+
+  setToken(token: string): void {
+    localStorage.setItem('token', token);
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+  clearToken(): void {
+    localStorage.removeItem('token');
+  }
+
+  isAuthenticated(): boolean {
+    const token = this.getToken();
+    return !!token;
+  }
+  
 
 }

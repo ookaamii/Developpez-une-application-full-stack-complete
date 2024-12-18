@@ -20,16 +20,17 @@ export class LoginComponent {
     password: ['', [Validators.required, Validators.minLength(8)]]
 });
 
-  constructor(private authService: AuthService,
+  constructor(
+    private authService: AuthService,
     private router: Router,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder
+  ) { }
 
   public submit(): void {
     const loginRequest = this.form.value as UserRequest;
     this.authService.login(loginRequest).subscribe(
       (response: AuthResponse) => {
-        console.log(response);
-        localStorage.setItem('token', response.token);
+        this.authService.setToken(response.token);
         this.router.navigate(['/topics'])
       },
     );
