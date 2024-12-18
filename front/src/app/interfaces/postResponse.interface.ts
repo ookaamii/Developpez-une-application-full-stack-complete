@@ -6,7 +6,7 @@ export interface PostResponse {
     title: string;
     author: string;
     content: string;
-    user: User[];
-    Topic: Topic[];
+    user: User;
+    Topic: Topic;
     date: Date;
 }
