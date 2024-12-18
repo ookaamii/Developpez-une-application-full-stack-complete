@@ -1,9 +1,10 @@
 import { enableProdMode } from '@angular/core';
 import { bootstrapApplication,provideProtractorTestingSupport } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { environment } from './environments/environment';
 import { AppComponent } from './app/app.component'; 
+import { authInterceptor } from './app/interceptors/auth-interceptor';
 import routeConfig from './app/app.routes';
 
 if (environment.production) {
@@ -13,7 +14,7 @@ if (environment.production) {
 bootstrapApplication(AppComponent,
   {
     providers: [
-      provideHttpClient(),
+      provideHttpClient(withInterceptors([authInterceptor])),
       provideProtractorTestingSupport(),
       provideRouter(routeConfig)
     ]
