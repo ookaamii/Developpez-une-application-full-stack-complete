@@ -6,6 +6,8 @@ import com.openclassrooms.mddapi.model.Post;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface PostMapper {
 
@@ -13,5 +15,7 @@ public interface PostMapper {
     PostResponseDTO postToPostResponseDTO(Post post, String username);
 
     Post postDTOToPost(PostRequestDTO postDTO);
+
+    List<PostResponseDTO> postsToPostResponseDTO(List<Post> posts);
 
 }

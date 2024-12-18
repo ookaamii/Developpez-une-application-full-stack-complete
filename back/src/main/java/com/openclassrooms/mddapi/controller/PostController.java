@@ -8,12 +8,19 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/post")
 @RequiredArgsConstructor
 public class PostController {
 
     private final PostService postService;
+
+    @GetMapping("/")
+    public ResponseEntity<List<PostResponseDTO>> findAllByTopics() {
+        return ResponseEntity.ok(postService.findAllByTopics());
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<PostResponseDTO> getPost(@PathVariable Long id) {

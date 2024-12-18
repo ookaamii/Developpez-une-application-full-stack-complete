@@ -15,6 +15,8 @@ import com.openclassrooms.mddapi.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
@@ -57,6 +59,17 @@ public class PostServiceImpl implements PostService {
         postRepository.save(post);
 
         return new ResponseDTO("L'article a été créé avec succès !");
+    }
+
+    @Override
+    public List<PostResponseDTO> findAllByTopics() {
+        // Récupérer l'utilisateur authentifié
+        User user = userService.getAuthenticatedUser();
+
+        // Récupérer tous les articles qui ont le thème où l'utilisateur est abonné
+        List<Post> posts = postRepository.findAllByTopics(user.getId());
+
+        return postMapper.postsToPostResponseDTO(posts);
     }
 
 }
