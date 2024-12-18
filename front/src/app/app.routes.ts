@@ -5,7 +5,7 @@ import { LoginComponent } from './features/auth/login/login.component';
 import { RegisterComponent } from './features/auth/register/register.component';
 import { TopicComponent } from './features/topic/topic.component';
 import { AuthService } from './services/auth.service';
-import { PostComponent } from './features/post/post.component';
+import { ListPostComponent } from './features/post/list-post/list-post.component';
 
 const routeConfig: Routes = [
   {
@@ -32,7 +32,7 @@ const routeConfig: Routes = [
   {
     title: 'Articles',
     path: 'posts',
-    component: PostComponent,
+    component: ListPostComponent,
     canActivate: [() => inject(AuthService).isAuthenticated()]
   }
 ];
