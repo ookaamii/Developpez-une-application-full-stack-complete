@@ -1,8 +1,10 @@
+import { inject } from '@angular/core';
 import { Routes } from '@angular/router';
 import { HomeComponent } from './features/home/home.component';
 import { LoginComponent } from './features/auth/login/login.component';
 import { RegisterComponent } from './features/auth/register/register.component';
 import { TopicComponent } from './features/topic/topic.component';
+import { AuthService } from './services/auth.service';
 
 const routeConfig: Routes = [
   {
@@ -24,7 +26,7 @@ const routeConfig: Routes = [
     title: 'Thèmes',
     path: 'topics',
     component: TopicComponent,
-    //canActivate: [AuthGuard]
+    canActivate: [() => inject(AuthService).isAuthenticated()]
   }
 ];
 

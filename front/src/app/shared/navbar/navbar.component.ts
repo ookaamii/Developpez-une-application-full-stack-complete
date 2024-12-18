@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,15 +10,15 @@ import { CommonModule } from '@angular/common';
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
-  token: string | null = null;
-  //showNavCo: boolean = false;
-  showNavCo: boolean = true;
+  showNavCo: boolean = false;
   imageUrl: string = "/assets/account.jpg"; 
 
-  ngOnInit(): void {
-    this.token = localStorage.getItem('token');
+  constructor(
+    private authService: AuthService
+  ) { }
 
-    if (this.token !== null) {
+  ngOnInit(): void {
+    if (this.authService.isAuthenticated()) {
       this.showNavCo = true;
     }
   }
