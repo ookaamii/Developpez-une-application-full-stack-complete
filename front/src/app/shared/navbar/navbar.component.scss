@@ -18,6 +18,13 @@
 
         img.img-account {
             width: 14vh;
+            cursor: pointer;
+        }
+
+        a {
+            &.active {
+                color: #7763c5;
+            }
         }
     }
 }
