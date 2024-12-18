@@ -1,0 +1,20 @@
+<div class="center">
+
+    <!-- Gestion du chargement -->
+    <div *ngIf="isLoading" class="spinner">Chargement...</div>
+  
+    <!-- Gestion des erreurs -->
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  
+    <!-- Liste des posts -->
+    <div class="post-list" *ngIf="!isLoading && !errorMessage">
+      <div *ngFor="let post of posts" class="post-vignette">
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.author }}</p>
+        <p>{{ post.date }}</p>
+        <p>{{ post.content }} ...</p>
+      </div>
+    </div>
+  </div>
