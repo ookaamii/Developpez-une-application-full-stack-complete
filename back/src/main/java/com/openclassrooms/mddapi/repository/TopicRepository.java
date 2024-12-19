@@ -8,8 +8,4 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface TopicRepository extends JpaRepository<Topic, Long> {
-
-    @Query("SELECT t FROM Topic t WHERE t.id NOT IN (SELECT s.topic.id FROM Subscription s WHERE s.user.id = :userId)")
-    List<Topic> findTopicsNotSubByUser(@Param("userId") Long userId);
-
 }

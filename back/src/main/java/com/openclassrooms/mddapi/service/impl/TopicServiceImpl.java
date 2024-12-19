@@ -21,17 +21,6 @@ public class TopicServiceImpl implements TopicService {
     private final UserService userService;
 
     @Override
-    public List<TopicDTO> findAllNotSub() {
-        // Récupérer l'utilisateur authentifié
-        User user = userService.getAuthenticatedUser();
-
-        // Récupérer tous les thèmes où l'utilisateur n'est pas abonné
-        List<Topic> topics = topicRepository.findTopicsNotSubByUser(user.getId());
-
-        return topicMapper.topicsToTopicDTOs(topics);
-    }
-
-    @Override
     public List<TopicDTO> findAll() {
         // Récupérer tous les thèmes
         List<Topic> topics = topicRepository.findAll();
