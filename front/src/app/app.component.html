@@ -3,7 +3,7 @@
 <router-outlet></router-outlet>-->
 
 <!-- Navbar classique (desktop) -->
-<app-navbar *ngIf="isDesktop"></app-navbar>
+<app-navbar *ngIf="isDesktop && !isHomeRoute"></app-navbar>
 
 <!-- Menu burger (mobile) si l'utilisateur est connecté -->
 <mat-sidenav-container *ngIf="!isDesktop && showNavCo" class="mobile-navbar">
