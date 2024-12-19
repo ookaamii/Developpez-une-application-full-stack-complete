@@ -1,1 +1,20 @@
-<p>comment works!</p>
+<!-- Liste des commentaires -->
+<div class="comment-list" *ngIf="!isLoading && !errorMessage">
+    Commentaires
+    <div *ngFor="let comment of comments" class="comment-vignette">
+        <span>{{ comment.author }}</span>
+        <p>{{ comment.content }}</p>
+    </div>
+</div>
+
+<!-- Ajout commentaire -->
+ <div class="comment-form">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+        <mat-form-field appearance="outline" class="textarea">
+            <mat-label>Ecrivez ici votre commentaire</mat-label>
+            <textarea matInput formControlName="content"></textarea>
+        </mat-form-field>
+
+        <img src="/assets/logo_send.png" type="submit" class="submit"/>
+    </form>
+ </div>

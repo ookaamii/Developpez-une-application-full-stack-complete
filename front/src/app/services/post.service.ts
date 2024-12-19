@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PostResponse } from '../interfaces/postResponse.interface';
 import { PostRequest } from '../interfaces/postRequest.interface';
+import { Response } from '../interfaces/response.interface';
 
 @Injectable({
   providedIn: 'root'

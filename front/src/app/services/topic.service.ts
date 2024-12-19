@@ -12,7 +12,7 @@ export class TopicService {
 
   constructor(private http: HttpClient) {}
 
-  findAllNotSub(): Observable<Topic[]> {
+  findAll(): Observable<Topic[]> {
     return this.http.get<Topic[]>(`${this.apiUrl}/`);
   }
 

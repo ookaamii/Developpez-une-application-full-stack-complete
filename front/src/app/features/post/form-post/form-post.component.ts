@@ -24,7 +24,7 @@ import { Response } from '../../../interfaces/response.interface';
 export class FormPostComponent {
   errorMessage: string | null = null; // Gestion des erreurs
   
-  public topics$ = this.topicService.findAllNotSub();
+  public topics$ = this.topicService.findAll();
 
   public form = this.fb.group({
     title: ['', [Validators.required]],
@@ -40,27 +40,18 @@ export class FormPostComponent {
     private snackBar: MatSnackBar
   ) { }
 
-  
-
   public submit(): void {
     const postRequest = this.form.value as PostRequest;
     this.postService.create(postRequest).subscribe({
       next: (response) => {
-        console.log('blopi');
-        console.log(response);
-        //this.snackBar.open(response.message, 'Fermer', { duration: 3000 }); // Notification
+        this.snackBar.open(response.message, 'Fermer', { duration: 3000 }); // Notification
         this.router.navigate(['/posts']);
       },
       error: (error) => {
-        console.log('bloup');
-        console.log(error);
         this.errorMessage = 'Une erreur est survenue lors du chargement des articles.';
       }
     });
   }
-
-  
-
 
   public back() {
     window.history.back();
