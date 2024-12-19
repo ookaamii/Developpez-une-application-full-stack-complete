@@ -6,6 +6,7 @@ import { RegisterComponent } from './features/auth/register/register.component';
 import { TopicComponent } from './features/topic/topic.component';
 import { AuthService } from './services/auth.service';
 import { ListPostComponent } from './features/post/list-post/list-post.component';
+import { PostComponent } from './features/post/post.component';
 
 const routeConfig: Routes = [
   {
@@ -33,6 +34,12 @@ const routeConfig: Routes = [
     title: 'Articles',
     path: 'posts',
     component: ListPostComponent,
+    canActivate: [() => inject(AuthService).isAuthenticated()]
+  },
+  {
+    title: 'Article',
+    path: 'post/:id',
+    component: PostComponent,
     canActivate: [() => inject(AuthService).isAuthenticated()]
   }
 ];

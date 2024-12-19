@@ -16,4 +16,8 @@ export class PostService {
     return this.http.get<PostResponse[]>(`${this.apiUrl}/`);
   }
 
+  getPost(id: number): Observable<PostResponse> {
+    return this.http.get<PostResponse>(`${this.apiUrl}/${id}`);
+  }
+
 }

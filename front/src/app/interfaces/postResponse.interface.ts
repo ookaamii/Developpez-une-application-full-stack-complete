@@ -7,6 +7,6 @@ export interface PostResponse {
     author: string;
     content: string;
     user: User;
-    Topic: Topic;
-    date: Date;
+    topic: Topic;
+    createdAt: Date;
 }
