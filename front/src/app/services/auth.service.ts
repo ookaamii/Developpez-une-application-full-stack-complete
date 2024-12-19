@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 import { UserRequest } from '../interfaces/userRequest.interface';
 import { AuthResponse } from '../interfaces/authResponse.interface';
+import { RegisterRequest } from '../interfaces/registerRequest.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +13,14 @@ export class AuthService {
 
   private readonly apiUrl = 'http://localhost:8080/api/auth';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   login(userRequest: UserRequest): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.apiUrl}/login`, userRequest);
+  }
+
+  register(registerRequest: RegisterRequest): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/register`, registerRequest)
   }
 
   setToken(token: string): void {
@@ -34,5 +40,9 @@ export class AuthService {
     return !!token;
   }
   
-
+  isNotAuthenticated(): void {
+    if(this.isAuthenticated()){
+      this.router.navigate(['/posts']);
+    }
+  }
 }

@@ -30,7 +30,6 @@ export class ListPostComponent {
     this.isLoading = true; // Active le spinner ou indique le chargement
     this.postService.findAllByPost().subscribe({
       next: (response: PostResponse[]) => {
-        console.log(response);
         this.posts = response; // Récupère les données
         this.isLoading = false; // Désactive le chargement
       },

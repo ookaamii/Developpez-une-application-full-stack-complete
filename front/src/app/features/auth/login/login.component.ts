@@ -31,7 +31,7 @@ export class LoginComponent {
     this.authService.login(loginRequest).subscribe(
       (response: AuthResponse) => {
         this.authService.setToken(response.token);
-        this.router.navigate(['/topics'])
+        this.router.navigate(['/posts'])
       },
     );
   }

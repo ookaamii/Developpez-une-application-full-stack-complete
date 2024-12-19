@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule, RouterLink, RouterOutlet, Event } from '@angular/router';
+import { RouterModule, RouterLink, RouterOutlet, Event, NavigationStart } from '@angular/router';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
@@ -17,6 +17,7 @@ import { MatListModule } from '@angular/material/list';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  isHomeRoute: boolean = false;
   showNavCo: boolean = false;
   isDesktop: boolean = window.innerWidth > 768;
   imageUrl: string = "/assets/account.jpg"; 
@@ -27,6 +28,13 @@ export class AppComponent implements OnInit {
     if (this.authService.isAuthenticated()) {
       this.showNavCo = true;
     }
+
+    this.router.events.subscribe((event: Event) => {
+      if (event instanceof NavigationStart) {
+        // Vérifie si la route actuelle est l'accueil
+        this.isHomeRoute = event.url === '/';
+      }
+    });
   }
 
     // Écoute le redimensionnement de la fenêtre pour changer le mode
