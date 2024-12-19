@@ -2,11 +2,13 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PostService } from '../../../services/post.service';
 import { PostResponse } from '../../../interfaces/postResponse.interface';
+import { MatButtonModule } from '@angular/material/button';
+import { RouterModule, Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-post',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatButtonModule, RouterModule],
   templateUrl: './list-post.component.html',
   styleUrl: './list-post.component.scss'
 })
@@ -16,7 +18,8 @@ export class ListPostComponent {
   errorMessage: string | null = null; // Gestion des erreurs
 
   constructor(
-    private postService: PostService
+    private postService: PostService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -36,6 +39,10 @@ export class ListPostComponent {
         this.isLoading = false;
       }
     });
+  }
+
+  detail(id: number) {
+    this.router.navigate(['/post/' + id]);
   }
 
 }

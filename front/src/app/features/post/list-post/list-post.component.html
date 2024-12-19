@@ -1,5 +1,7 @@
 <div class="center">
 
+    <button mat-button class="create">Créer un article</button>
+
     <!-- Gestion du chargement -->
     <div *ngIf="isLoading" class="spinner">Chargement...</div>
   
@@ -10,11 +12,17 @@
   
     <!-- Liste des posts -->
     <div class="post-list" *ngIf="!isLoading && !errorMessage">
-      <div *ngFor="let post of posts" class="post-vignette">
+      <div *ngFor="let post of posts" class="post-vignette" (click)="detail(post.id)">
         <h3>{{ post.title }}</h3>
-        <p>{{ post.user.username }}</p>
-        <p>{{ post.date }}</p>
-        <p>{{ post.content }} ...</p>
+        <p class="infos">
+            <span>
+                {{ post.createdAt | date:'dd/MM/yyyy, h:mm a' }}
+            </span>
+            <span>
+                {{ post.user.username }}
+            </span>
+        </p>
+        <p>Content: {{ post.content | slice:0:100 }} ...</p>
       </div>
     </div>
   </div>
