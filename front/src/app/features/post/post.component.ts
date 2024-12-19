@@ -3,13 +3,14 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { CommentComponent } from './comment/comment.component';
 import { PostService } from '../../services/post.service';
 import { PostResponse } from '../../interfaces/postResponse.interface';
 
 @Component({
   selector: 'app-post',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatButtonModule],
+  imports: [CommonModule, MatIconModule, MatButtonModule, CommentComponent],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss'
 })
@@ -17,7 +18,6 @@ export class PostComponent {
   post: PostResponse | null = null; // Info du post
   errorMessage: string | null = null; // Gestion des erreurs
   postId: number;
-
 
   constructor(
     private postService: PostService,

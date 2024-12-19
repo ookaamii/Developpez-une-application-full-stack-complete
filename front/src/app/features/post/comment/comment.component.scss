@@ -1,0 +1,47 @@
+.comment-list {
+    margin-top: 3em;
+}
+
+.comment-vignette, .comment-form {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 80%;
+    margin: 3em auto auto auto;
+    align-items: flex-start;
+
+    p {
+        background-color: #eeeeee;
+        border-radius: 1em;
+        padding: 1em;
+        width: 50vh;
+        min-height: 10vh;
+    }
+
+    span {
+        display: inline-block;
+        margin-right: 10em;
+    }
+}
+
+.comment-form {
+    text-align: center;
+
+    form {
+        width: 100%;
+        margin: auto;
+        
+
+        .textarea {
+            margin: auto 1em auto auto;
+            width: 85%;
+            min-height: 15vh;
+            vertical-align: middle;
+        }
+
+        .submit {
+            color: #7763c5;
+            width: 5vh;
+            cursor: pointer;
+        }
+    }
+}

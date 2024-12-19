@@ -30,7 +30,7 @@ export class TopicComponent implements OnInit {
 
   loadTopics(): void {
     this.isLoading = true; // Active le spinner ou indique le chargement
-    this.topicService.findAllNotSub().subscribe({
+    this.topicService.findAll().subscribe({
       next: (response: Topic[]) => {
         this.topics = response; // Récupère les données
         this.isLoading = false; // Désactive le chargement
