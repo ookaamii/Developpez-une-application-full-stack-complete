@@ -8,6 +8,7 @@ import { AuthService } from './services/auth.service';
 import { ListPostComponent } from './features/post/list-post/list-post.component';
 import { PostComponent } from './features/post/post.component';
 import { FormPostComponent } from './features/post/form-post/form-post.component';
+import { MeComponent } from './features/me/me.component';
 
 const routeConfig: Routes = [
   {
@@ -51,6 +52,12 @@ const routeConfig: Routes = [
     title: 'Créer un article',
     path: 'posts/create',
     component: FormPostComponent,
+    canActivate: [() => inject(AuthService).isAuthenticated()]
+  },
+  {
+    title: 'Profil',
+    path: 'me',
+    component: MeComponent,
     canActivate: [() => inject(AuthService).isAuthenticated()]
   }
 ];

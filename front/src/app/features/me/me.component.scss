@@ -1,0 +1,41 @@
+.center {
+    width: 70%;
+    margin: 5em auto auto auto;
+
+    @media (max-width: 768px) {
+        width: 100%;
+        margin: 2em auto auto auto;
+    }
+
+    .me-container {
+        margin: auto;
+        width: 40%;
+        text-align: center;
+
+        h2 {
+            font-weight: bold;
+        }
+
+        form {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            margin: 4em auto;
+
+            .submit {
+                border-color: #7763c5;
+                background-color: #7763c5;
+                color: white;
+                display: block;
+                width: 20vh;
+                margin: 2em auto 0.5em auto;
+            }
+
+            .logout {
+                color: #a40f0f;
+                font-weight: bold;
+                cursor: pointer;
+            }
+        }
+    }
+}

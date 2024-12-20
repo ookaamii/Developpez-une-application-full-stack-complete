@@ -1,0 +1,24 @@
+<div class="center">
+    <div class="me-container">
+        <h2>
+            Profil utilisateur
+        </h2>
+
+        <form *ngIf="me" [formGroup]="form" (ngSubmit)="submit()">
+            <mat-form-field appearance="outline">
+                <input matInput formControlName="username" placeholder="Username">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <input matInput formControlName="email" placeholder="Email">
+            </mat-form-field>
+
+            <button mat-stroked-button type="submit" class="submit">Sauvegarder</button>
+
+            <span class="logout" (click)="logout()">Se déconnecter</span>
+        </form>
+
+        <HR>
+            
+    </div>
+</div>
