@@ -1,13 +1,13 @@
 .center {
-  height: 80vh;
+  height: 100%;
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
 
   img {
     @media (max-width: 768px) {
       width: 40vh;
+      margin: 5em;
     }
   }
 
