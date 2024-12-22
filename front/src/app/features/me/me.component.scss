@@ -21,6 +21,10 @@
             margin: 4em auto auto auto;
             width: 40%;
 
+            @media (max-width: 768px) {
+                width: 85%;
+            }
+
             .submit {
                 border-color: #7763c5;
                 background-color: #7763c5;

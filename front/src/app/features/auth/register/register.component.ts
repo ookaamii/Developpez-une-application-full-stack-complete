@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthResponse } from '../../../interfaces/authResponse.interface';
 import { RegisterRequest } from '../../../interfaces/registerRequest.interface';
@@ -10,7 +11,7 @@ import { AuthService } from '../../../services/auth.service';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [RouterModule, CommonModule, MatButtonModule, ReactiveFormsModule],
+  imports: [RouterModule, CommonModule, MatButtonModule, MatIconModule, ReactiveFormsModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
@@ -38,4 +39,7 @@ export class RegisterComponent {
     );
   }
 
+  public back() {
+    window.history.back();
+  }
 }

@@ -12,6 +12,14 @@
         width: 40%;
         text-align: center;
 
+        @media (max-width: 768px) {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2em;
+            justify-content: center;
+        }
+
         h2 {
             font-weight: bold;
 
@@ -26,6 +34,15 @@
             flex-direction: column;
             margin: 4em auto;
 
+            @media (max-width: 768px) {
+                width: 85%;
+                margin: auto;
+            }
+
+            .textarea {
+                    height: 30vh;
+            }
+
             .submit {
                 border-color: #7763c5;
                 background-color: #7763c5;
@@ -33,6 +50,10 @@
                 display: block;
                 width: 20vh;
                 margin: 4em auto auto auto;
+
+                @media (max-width: 768px) {
+                    margin-top: 2em;
+                }
             }
         }
     }

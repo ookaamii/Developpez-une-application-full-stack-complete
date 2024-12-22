@@ -5,6 +5,12 @@
     align-items: center;
     margin: 5em auto auto auto;
 
+    @media (max-width: 768px) {
+        padding: 1em;
+        width: auto;
+        margin: auto;
+    }
+
     .topic-list {
         display: flex;
         flex-wrap: wrap;
@@ -16,6 +22,10 @@
             padding: 2em;
             border-radius: 1em;
             width: 60vh;
+
+            @media (max-width: 768px) {
+                width: 85%;
+            }
 
             h3 {
                 font-weight: bold;

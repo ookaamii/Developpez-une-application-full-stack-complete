@@ -11,12 +11,18 @@
         display: flex;
         justify-content: space-between;
 
+        @media (max-width: 768px) {
+            display: flex;
+            flex-direction: column;
+        }
+
         .create {
             border-color: #7763c5;
             background-color: #7763c5;
             color: white;
             margin-bottom: 2em;
             display: block;
+            cursor: pointer;
     
             @media (max-width: 768px) {
                 margin: auto auto 2em auto;
@@ -26,6 +32,10 @@
         span {
             font-weight: bold;
             cursor: pointer;
+
+            @media (max-width: 768px) {
+                text-align: center;
+            }
 
             .mat-icon {
                 vertical-align: bottom;

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthResponse } from '../../../interfaces/authResponse.interface';
 import { UserRequest } from '../../../interfaces/userRequest.interface'; 
@@ -10,7 +11,7 @@ import { AuthService } from '../../../services/auth.service';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterModule, CommonModule, MatButtonModule, ReactiveFormsModule],
+  imports: [RouterModule, CommonModule, MatButtonModule, MatIconModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -34,5 +35,9 @@ export class LoginComponent {
         this.router.navigate(['/posts'])
       },
     );
+  }
+
+  public back() {
+    window.history.back();
   }
 }
