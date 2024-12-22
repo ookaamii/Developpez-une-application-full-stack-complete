@@ -18,8 +18,8 @@ public class PostController {
     private final PostService postService;
 
     @GetMapping("/")
-    public ResponseEntity<List<PostResponseDTO>> findAllByTopics() {
-        return ResponseEntity.ok(postService.findAllByTopics());
+    public ResponseEntity<List<PostResponseDTO>> findAllByTopics(@RequestParam(defaultValue = "desc") String sort) {
+        return ResponseEntity.ok(postService.findAllByTopics(sort));
     }
 
     @GetMapping("/{id}")

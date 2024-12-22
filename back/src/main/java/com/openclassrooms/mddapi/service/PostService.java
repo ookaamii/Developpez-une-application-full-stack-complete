@@ -12,6 +12,6 @@ public interface PostService {
 
     ResponseDTO create(PostRequestDTO postDTO);
 
-    List<PostResponseDTO> findAllByTopics();
+    List<PostResponseDTO> findAllByTopics(String sort);
 
 }

@@ -13,6 +13,7 @@ import com.openclassrooms.mddapi.repository.TopicRepository;
 import com.openclassrooms.mddapi.service.PostService;
 import com.openclassrooms.mddapi.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -62,12 +63,16 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<PostResponseDTO> findAllByTopics() {
+    public List<PostResponseDTO> findAllByTopics(String sortDirection) {
         // Récupérer l'utilisateur authentifié
         User user = userService.getAuthenticatedUser();
 
+        // Définir l'ordre de tri
+        Sort sort = sortDirection.equalsIgnoreCase("desc")
+                ? Sort.by("id").descending()
+                : Sort.by("id").ascending();
         // Récupérer tous les articles qui ont le thème où l'utilisateur est abonné
-        List<Post> posts = postRepository.findAllByTopics(user.getId());
+        List<Post> posts = postRepository.findAllByTopicSubscriptions(user.getId(), sort);
 
         return postMapper.postsToPostResponseDTO(posts);
     }
