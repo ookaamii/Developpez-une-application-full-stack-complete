@@ -1,0 +1,12 @@
+<h2>
+    Abonnements
+</h2>
+
+<!-- Liste des topics -->
+<div class="topic-list" *ngIf="!errorMessage">
+    <div *ngFor="let topic of topics" class="topic-vignette">
+        <h3>{{ topic.topic }}</h3>
+        <p>{{ topic.description | slice:0:95 }} ...</p>
+        <button mat-button class="sub" (click)="unSubscribe(topic.id)">Se désabonner</button>
+    </div>
+</div>

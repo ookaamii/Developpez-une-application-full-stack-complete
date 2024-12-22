@@ -8,8 +8,6 @@
     }
 
     .me-container {
-        margin: auto;
-        width: 40%;
         text-align: center;
 
         h2 {
@@ -20,7 +18,8 @@
             display: flex;
             justify-content: center;
             flex-direction: column;
-            margin: 4em auto;
+            margin: 4em auto auto auto;
+            width: 40%;
 
             .submit {
                 border-color: #7763c5;

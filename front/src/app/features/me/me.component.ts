@@ -12,11 +12,12 @@ import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
 import { UserUpdateRequest } from '../../interfaces/userUpdateRequest.interface';
 import { User } from '../../interfaces/user.interface';
+import { SubscriptionComponent } from './subscription/subscription.component';
 
 @Component({
   selector: 'app-me',
   standalone: true,
-  imports: [RouterModule, CommonModule, MatButtonModule, MatIconModule, MatFormFieldModule, MatInputModule, MatSelectModule, ReactiveFormsModule],
+  imports: [RouterModule, CommonModule, MatButtonModule, MatIconModule, MatFormFieldModule, MatInputModule, MatSelectModule, ReactiveFormsModule, SubscriptionComponent],
   templateUrl: './me.component.html',
   styleUrl: './me.component.scss'
 })
