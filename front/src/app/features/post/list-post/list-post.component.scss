@@ -7,15 +7,29 @@
         margin: 2em auto auto auto;
     }
 
-    .create {
-        border-color: #7763c5;
-        background-color: #7763c5;
-        color: white;
-        margin-bottom: 2em;
-        display: block;
+    .entete {
+        display: flex;
+        justify-content: space-between;
 
-        @media (max-width: 768px) {
-            margin: auto auto 2em auto;
+        .create {
+            border-color: #7763c5;
+            background-color: #7763c5;
+            color: white;
+            margin-bottom: 2em;
+            display: block;
+    
+            @media (max-width: 768px) {
+                margin: auto auto 2em auto;
+            }
+        }
+
+        span {
+            font-weight: bold;
+            cursor: pointer;
+
+            .mat-icon {
+                vertical-align: bottom;
+            }
         }
     }
 

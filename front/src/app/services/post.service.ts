@@ -14,8 +14,8 @@ export class PostService {
 
   constructor(private http: HttpClient) {}
 
-  findAllByPost(): Observable<PostResponse[]> {
-    return this.http.get<PostResponse[]>(`${this.apiUrl}/`);
+  findAllByPost(sortBy: string): Observable<PostResponse[]> {
+    return this.http.get<PostResponse[]>(`${this.apiUrl}/?sort=${sortBy}`);
   }
 
   getPost(id: number): Observable<PostResponse> {

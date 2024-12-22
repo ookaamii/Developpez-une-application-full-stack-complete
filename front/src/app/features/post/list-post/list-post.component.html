@@ -1,6 +1,9 @@
 <div class="center">
 
-    <button mat-button class="create" routerLink="create">Créer un article</button>
+    <div class="entete">
+      <button mat-button class="create" routerLink="create">Créer un article</button>
+      <span (click)="changerSort()">Trier par <mat-icon>{{ arrowicon }}</mat-icon></span>
+    </div>
 
     <!-- Gestion du chargement -->
     <div *ngIf="isLoading" class="spinner">Chargement...</div>
