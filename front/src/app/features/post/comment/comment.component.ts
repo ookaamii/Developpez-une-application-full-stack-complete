@@ -58,6 +58,8 @@ export class CommentComponent {
     this.commentService.create(this.postId, comment).subscribe({
       next: (response) => {
         this.snackBar.open(response.message, 'Fermer', { duration: 3000 }); // Notification
+        this.form.reset(); // Réinitialise le formulaire après l'envoi
+        this.loadComments(); // Recharge les commentaires pour afficher le nouveau
       },
       error: (error) => {
         this.errorMessage = '';

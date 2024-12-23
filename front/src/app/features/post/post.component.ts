@@ -34,7 +34,7 @@ export class PostComponent {
         this.post = response; // Récupère les données
       },
       error: (error) => {
-        this.errorMessage = 'Une erreur est survenue lors du chargement des articles.';
+        this.errorMessage = 'Article non trouvé.';
       }
     });
   }

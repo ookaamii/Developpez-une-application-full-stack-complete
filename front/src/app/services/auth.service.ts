@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { UserRequest } from '../interfaces/userRequest.interface';
 import { AuthResponse } from '../interfaces/authResponse.interface';
@@ -12,6 +12,10 @@ import { RegisterRequest } from '../interfaces/registerRequest.interface';
 export class AuthService {
 
   private readonly apiUrl = 'http://localhost:8080/api/auth';
+
+   // BehaviorSubject pour suivre l'état d'authentification
+   private isAuthenticatedSubject = new BehaviorSubject<boolean>(this.isAuthenticated());
+   isAuthenticated$ = this.isAuthenticatedSubject.asObservable(); // Observable à exposer
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -25,6 +29,7 @@ export class AuthService {
 
   setToken(token: string): void {
     localStorage.setItem('token', token);
+    this.isAuthenticatedSubject.next(true); // Met à jour l'état d'authentification
   }
 
   getToken(): string | null {
@@ -33,6 +38,7 @@ export class AuthService {
 
   clearToken(): void {
     localStorage.removeItem('token');
+    this.isAuthenticatedSubject.next(false); // Met à jour l'état d'authentification
   }
 
   isAuthenticated(): boolean {
