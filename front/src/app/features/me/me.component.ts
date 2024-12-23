@@ -27,7 +27,8 @@ export class MeComponent {
 
   public form = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
-    username: ['', [Validators.required]]
+    username: ['', [Validators.required]],
+    password: ['', [Validators.required]]
   });
 
   constructor(
@@ -46,11 +47,12 @@ export class MeComponent {
     this.userService.getProfile().subscribe({
       next: (response: User) => {
         this.me = response; // Récupère les données
-
+        console.log(this.me);
         // Met à jour les valeurs du formulaire
         this.form.patchValue({
           email: this.me.email,
-          username: this.me.username
+          username: this.me.username,
+          password: this.me.password
         });
       },
       error: (error) => {
