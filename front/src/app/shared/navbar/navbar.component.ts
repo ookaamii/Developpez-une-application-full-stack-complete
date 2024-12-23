@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -20,6 +21,7 @@ export class NavbarComponent {
   showColorTopic: boolean = false;
   imageUrl: string = "/assets/account.jpg"; 
   currentUrl: string = '';
+  private authSubscription!: Subscription;
 
   @Output() public sidenavToggle = new EventEmitter();
 
@@ -29,9 +31,10 @@ export class NavbarComponent {
   ) { }
 
   ngOnInit(): void {
-    if (this.authService.isAuthenticated()) {
-      this.showNavCo = true;
-    }
+    // Écouter les changements d'état d'authentification
+    this.authSubscription = this.authService.isAuthenticated$.subscribe((isAuthenticated) => {
+      this.showNavCo = isAuthenticated;
+    });
 
     // Écouter les changements d'URL
     this.router.events.subscribe((event) => {
@@ -47,5 +50,12 @@ export class NavbarComponent {
 
   public onToggleSidenav = () => {
     this.sidenavToggle.emit();
+  }
+
+  ngOnDestroy(): void {
+    // Désabonnement pour éviter les fuites de mémoire
+    if (this.authSubscription) {
+      this.authSubscription.unsubscribe();
+    }
   }
 }
