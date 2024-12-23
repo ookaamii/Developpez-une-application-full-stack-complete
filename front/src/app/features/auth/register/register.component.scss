@@ -33,7 +33,7 @@
         @media (max-width: 768px) {
             width: 85%;
         }
-    
+
 
         label {
             text-align: left;
@@ -44,7 +44,7 @@
                 margin-top: 0;
             }
         }
-    
+
         input {
             all: unset;
             padding: 15px 10px;
@@ -68,7 +68,22 @@
             @media (max-width: 768px) {
                 margin: auto;
             }
+
+            &[disabled] {
+                cursor: not-allowed;
+                opacity: 0.5;
+            }
         }
+
+        /* Par défaut, les conditions de validation ne sont pas remplies */
+        mat-error ul li {
+            color: red;
+        }
+
+        /* Si la condition est remplie, changer de couleur */
+        mat-error ul li.valid {
+            color: green;
+        }
+
     }
 }
-

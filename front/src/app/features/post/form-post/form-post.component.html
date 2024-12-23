@@ -28,7 +28,7 @@
                 <textarea matInput formControlName="content"></textarea>
             </mat-form-field>
 
-            <button mat-stroked-button type="submit" class="submit">Créer</button>
+            <button mat-stroked-button type="submit" class="submit" [disabled]="form.invalid">Créer</button>
         </form>
     </div>
 </div>

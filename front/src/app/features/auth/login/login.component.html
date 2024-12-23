@@ -13,6 +13,6 @@
         <label for="password">Mot de passe</label>
         <input type="password" id="password" formControlName="password">
 
-        <button mat-stroked-button type="submit" class="submit">Se connecter</button>
+        <button mat-stroked-button type="submit" class="submit" [disabled]="form.invalid">Se connecter</button>
     </form>
 </div>

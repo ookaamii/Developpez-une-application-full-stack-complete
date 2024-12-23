@@ -68,6 +68,11 @@
             @media (max-width: 768px) {
                 margin: auto;
             }
+
+            &[disabled] {
+                cursor: not-allowed;
+                opacity: 0.5;
+            }
         }
     }
 }

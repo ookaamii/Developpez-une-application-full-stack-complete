@@ -6,6 +6,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { environment } from './environments/environment';
 import { AppComponent } from './app/app.component'; 
 import { authInterceptor } from './app/interceptors/auth-interceptor';
+import { errorInterceptor } from './app/interceptors/error-interceptor';
 import routeConfig from './app/app.routes';
 
 if (environment.production) {
@@ -15,7 +16,7 @@ if (environment.production) {
 bootstrapApplication(AppComponent,
   {
     providers: [
-      provideHttpClient(withInterceptors([authInterceptor])),
+      provideHttpClient(withInterceptors([authInterceptor, errorInterceptor])),
       provideProtractorTestingSupport(),
       provideRouter(routeConfig),
       provideAnimations()
