@@ -41,6 +41,7 @@ export class SubscriptionComponent {
     this.subscriptionService.unSubscribe(id).subscribe({
       next: (response: Response) => {
         this.snackBar.open(response.message, 'Fermer', { duration: 3000 }); // Notification
+        this.loadTopics();
       },
       error: (error) => {
         this.errorMessage = 'Une erreur est survenue lors du désabonnement du thème.';

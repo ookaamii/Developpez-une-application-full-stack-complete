@@ -30,14 +30,28 @@
                 background-color: #7763c5;
                 color: white;
                 display: block;
-                width: 20vh;
-                margin: 2em auto 0.5em auto;
+                margin: 0.5em auto 0.5em auto;
+
+                &[disabled] {
+                    cursor: not-allowed;
+                    opacity: 0.5;
+                }
             }
 
             .logout {
                 color: #a40f0f;
                 font-weight: bold;
                 cursor: pointer;
+            }
+
+            /* Par défaut, les conditions de validation ne sont pas remplies */
+            mat-error ul li {
+                color: red;
+            }
+
+            /* Si la condition est remplie, changer de couleur */
+            mat-error ul li.valid {
+                color: green;
             }
         }
     }

@@ -18,8 +18,7 @@ export class SubscriptionService {
   }
 
   unSubscribe(id: number): Observable<Response> {
-    console.log(id);
-    return this.http.delete<Response>(`${this.apiUrl}/topic/${id}/unsubscribe`, {});
+    return this.http.post<Response>(`${this.apiUrl}/topic/${id}/unsubscribe`, {});
   }
 
   findAllByUser(): Observable<Topic[]> {

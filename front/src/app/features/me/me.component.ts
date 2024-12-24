@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators, AbstractControl } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,6 +11,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
 import { UserUpdateRequest } from '../../interfaces/userUpdateRequest.interface';
+import { PasswordUpdateRequest } from '../../interfaces/passwordUpdateRequest.interface';
 import { User } from '../../interfaces/user.interface';
 import { SubscriptionComponent } from './subscription/subscription.component';
 
@@ -27,8 +28,18 @@ export class MeComponent {
 
   public form = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
-    username: ['', [Validators.required]],
-    password: ['', [Validators.required]]
+    username: ['', [Validators.required]]
+  });
+
+  public formPassword = this.fb.group({
+    oldPassword: ['', [Validators.required]],
+    newPassword: ['', [Validators.required,
+      Validators.minLength(8),
+      Validators.pattern(/[A-Z]/), // Au moins une majuscule
+      Validators.pattern(/[a-z]/), // Au moins une minuscule
+      Validators.pattern(/[0-9]/), // Au moins un chiffre
+      Validators.pattern(/[\W_]/), // Au moins un caractère spécial
+      ]]
   });
 
   constructor(
@@ -47,12 +58,10 @@ export class MeComponent {
     this.userService.getProfile().subscribe({
       next: (response: User) => {
         this.me = response; // Récupère les données
-        console.log(this.me);
         // Met à jour les valeurs du formulaire
         this.form.patchValue({
           email: this.me.email,
-          username: this.me.username,
-          password: this.me.password
+          username: this.me.username
         });
       },
       error: (error) => {
@@ -66,7 +75,21 @@ export class MeComponent {
     this.userService.update(userUpdateRequest).subscribe({
       next: (response) => {
         this.snackBar.open(response.message, 'Fermer', { duration: 3000 }); // Notification
-        this.router.navigate(['/me']);
+        this.form.reset();
+        this.loadUser();
+      },
+      error: (error) => {
+      }
+    });
+  }
+
+  public submitPassword(): void {
+    const passwordUpdateRequest = this.formPassword.value as PasswordUpdateRequest;
+    this.userService.updatePassword(passwordUpdateRequest).subscribe({
+      next: (response) => {
+        this.snackBar.open(response.message, 'Fermer', { duration: 3000 }); // Notification
+        this.form.reset();
+        this.loadUser();
       },
       error: (error) => {
       }
@@ -76,5 +99,30 @@ export class MeComponent {
   logout() {
     this.authService.clearToken();
     this.router.navigate(['/']);
+  }
+
+  // Getters pour les validations
+  get passwordControl(): AbstractControl | null {
+    return this.formPassword.get('newPassword');
+  }
+
+  has8Caracteres(): boolean {
+    return (this.passwordControl?.value || '').length >= 8;
+  }
+  
+  hasUpperCase(): boolean {
+    return /[A-Z]/.test(this.passwordControl?.value || '');
+  }
+
+  hasLowerCase(): boolean {
+    return /[a-z]/.test(this.passwordControl?.value || '');
+  }
+
+  hasNumber(): boolean {
+    return /[0-9]/.test(this.passwordControl?.value || '');
+  }
+
+  hasSpecialCharacter(): boolean {
+    return /[\W_]/.test(this.passwordControl?.value || '');
   }
 }
