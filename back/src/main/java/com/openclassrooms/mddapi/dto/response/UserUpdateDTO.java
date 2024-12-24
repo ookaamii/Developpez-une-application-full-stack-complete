@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.dto;
+package com.openclassrooms.mddapi.dto.response;
 
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;

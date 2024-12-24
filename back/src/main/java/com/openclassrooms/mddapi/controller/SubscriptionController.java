@@ -21,7 +21,7 @@ public class SubscriptionController {
         return ResponseEntity.ok(subscriptionService.subTopic(id));
     }
 
-    @PostMapping("/topic/{id}/unsubscribe")
+    @PostMapping("/topic/unsubscribe/{id}")
     public ResponseEntity<ResponseDTO> unsubscribe(@PathVariable Long id) {
         return ResponseEntity.ok(subscriptionService.unsubscribeTopic(id));
     }

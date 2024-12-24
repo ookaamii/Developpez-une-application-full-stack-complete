@@ -1,7 +1,7 @@
 package com.openclassrooms.mddapi.mapper;
 
 import com.openclassrooms.mddapi.dto.request.RegisterDTO;
-import com.openclassrooms.mddapi.dto.UserUpdateDTO;
+import com.openclassrooms.mddapi.dto.response.UserUpdateDTO;
 import com.openclassrooms.mddapi.model.User;
 import org.mapstruct.Mapper;
 
