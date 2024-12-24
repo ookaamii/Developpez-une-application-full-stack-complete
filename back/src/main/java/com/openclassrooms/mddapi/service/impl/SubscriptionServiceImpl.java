@@ -50,8 +50,15 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
     @Override
     public ResponseDTO unsubscribeTopic(Long id) {
+        // Récupérer le thème à partir de l'id
+        Topic topic = topicRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Thème non trouvé"));
+
+        // Récupérer l'utilisateur connecté
+        User user = userService.getAuthenticatedUser();
+
         // Supprimer un abonnement
-        subscriptionRepository.deleteById(id);
+        subscriptionRepository.deleteSubscriptionByTopicAndUser(topic, user);
 
         return new ResponseDTO("Vous vous êtes désabonné avec succès !");
     }
