@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../interfaces/user.interface';
 import { UserUpdateRequest } from '../interfaces/userUpdateRequest.interface';
+import { PasswordUpdateRequest } from '../interfaces/passwordUpdateRequest.interface';
 import { Response } from '../interfaces/response.interface';
 
 @Injectable({
@@ -20,6 +21,10 @@ export class UserService {
 
   update(userUpdateRequest: UserUpdateRequest): Observable<Response> {
     return this.http.put<Response>(`${this.apiUrl}/update`, userUpdateRequest);
+  }
+
+  updatePassword(passwordUpdateRequest: PasswordUpdateRequest): Observable<Response> {
+    return this.http.put<Response>(`${this.apiUrl}/update/password`, passwordUpdateRequest);
   }
 
 }

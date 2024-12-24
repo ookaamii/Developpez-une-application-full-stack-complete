@@ -13,11 +13,29 @@
                 <input matInput formControlName="email" placeholder="Email">
             </mat-form-field>
 
+            <button mat-stroked-button type="submit" class="submit" [disabled]="form.invalid">Sauvegarder</button>
+        </form>
+
+        <form *ngIf="me" [formGroup]="formPassword" (ngSubmit)="submitPassword()">
             <mat-form-field appearance="outline">
-                <input matInput formControlName="password" placeholder="Mot de passe">
+                <input matInput formControlName="oldPassword" type="password" placeholder="Ancien mot de passe">
             </mat-form-field>
 
-            <button mat-stroked-button type="submit" class="submit" [disabled]="form.invalid">Sauvegarder</button>
+            <mat-form-field appearance="outline">
+                <input matInput formControlName="newPassword" type="password" placeholder="Nouveau mot de passe">
+                <mat-error *ngIf="formPassword.get('newPassword')?.invalid && (formPassword.get('newPassword')?.dirty || formPassword.get('newPassword')?.touched)">
+                    Le mot de passe doit contenir au moins :
+                    <ul>
+                        <li [class.valid]="has8Caracteres()">Un minimum de 8 caractères</li>
+                        <li [class.valid]="hasUpperCase()">Une lettre majuscule</li>
+                        <li [class.valid]="hasLowerCase()">Une lettre minuscule</li>
+                        <li [class.valid]="hasNumber()">Un chiffre</li>
+                        <li [class.valid]="hasSpecialCharacter()">Un caractère spécial</li>
+                      </ul>
+                </mat-error>
+            </mat-form-field>
+
+            <button mat-stroked-button type="submit" class="submit" [disabled]="formPassword.invalid">Modifier mot de passe</button>
 
             <span class="logout" (click)="logout()">Se déconnecter</span>
         </form>
