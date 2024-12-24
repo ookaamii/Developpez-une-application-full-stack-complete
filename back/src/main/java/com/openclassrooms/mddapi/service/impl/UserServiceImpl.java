@@ -111,7 +111,7 @@ public class UserServiceImpl implements UserService {
 
         // Vérifier que l'ancien mot de passe est correct
         if (!encoder.matches(passwordUpdateDTO.getOldPassword(), user.getPassword())) {
-            throw new UnauthorizedException("L'ancien mot de passe est incorrect.");
+            throw new BadRequestException("L'ancien mot de passe est incorrect.");
         }
 
         // Encoder et mettre à jour le nouveau mot de passe
