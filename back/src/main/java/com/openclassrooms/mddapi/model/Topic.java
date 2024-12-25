@@ -29,8 +29,9 @@ public class Topic {
     private String topic;
 
     /**
-     * Description du thème qui ne doit pas être null
+     * Description du thème qui ne doit pas être null et doit être en format texte
      */
+    @Lob
     @Column(nullable = false)
     private String description;
 

@@ -26,8 +26,9 @@ public class Comment {
     private Long id;
 
     /**
-     * Contenu du commentaire qui ne doit pas être null
+     * Contenu du commentaire qui ne doit pas être null et doit être en format texte
      */
+    @Lob
     @Column(nullable = false)
     private String content;
 
