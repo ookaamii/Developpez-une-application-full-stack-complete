@@ -5,6 +5,7 @@ import com.openclassrooms.mddapi.mapper.TopicMapper;
 import com.openclassrooms.mddapi.model.Topic;
 import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.repository.TopicRepository;
+import com.openclassrooms.mddapi.service.SubscriptionService;
 import com.openclassrooms.mddapi.service.TopicService;
 import com.openclassrooms.mddapi.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Implémentation de {@link TopicService}.
+ */
 @Service
 @RequiredArgsConstructor
 public class TopicServiceImpl implements TopicService {
@@ -20,6 +24,9 @@ public class TopicServiceImpl implements TopicService {
     private final TopicMapper topicMapper;
     private final UserService userService;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<TopicDTO> findAll() {
         // Récupérer tous les thèmes

@@ -13,6 +13,7 @@ import com.openclassrooms.mddapi.dto.response.AuthDTO;
 import com.openclassrooms.mddapi.mapper.UserMapper;
 import com.openclassrooms.mddapi.repository.UserRepository;
 import com.openclassrooms.mddapi.security.JwtUtils;
+import com.openclassrooms.mddapi.service.TopicService;
 import com.openclassrooms.mddapi.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,6 +25,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+/**
+ * Implémentation de {@link UserService}.
+ */
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -34,6 +38,9 @@ public class UserServiceImpl implements UserService {
     private final AuthenticationManager authenticationManager;
     private final UserMapper userMapper;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public AuthDTO register(RegisterDTO registerDTO) {
         // Vérifier que l'email ne soit pas déjà utilisé
@@ -50,6 +57,9 @@ public class UserServiceImpl implements UserService {
         return new AuthDTO(jwtUtils.generateToken(user.getEmail()));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public AuthDTO login(LoginDTO loginDTO) {
         // Authentifier l'utilisateur avec le mail et le mot de passe
@@ -64,6 +74,9 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public User getAuthenticatedUser() {
         // Récupérer les infos de l'utilisateur connecté
@@ -74,6 +87,9 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new NotFoundException("Utilisateur non trouvé"));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public UserUpdateDTO getProfile() {
         // Récupérer l'utilisateur connecté
@@ -82,6 +98,9 @@ public class UserServiceImpl implements UserService {
         return userMapper.userToUserDTO(user);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ResponseDTO update(UserUpdateDTO userDTO) {
         // Récupérer l'utilisateur connecté
@@ -97,6 +116,12 @@ public class UserServiceImpl implements UserService {
         return new ResponseDTO("Votre profil a été modifié avec succès !");
     }
 
+    /**
+     * Vérifier que l'email utilisateur ne soit pas déjà utilisé.
+     *
+     * @param registerDTO Les données DTO de l'utilisateur.
+     * @throws BadRequestException Si l'email est déjà utilisé.
+     */
     private void validateRegisterData(RegisterDTO registerDTO) {
         // Vérifier que l'email ne soit pas déjà utilisé
         if (userRepository.existsByEmail(registerDTO.getEmail())) {
@@ -104,6 +129,9 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ResponseDTO updatePassword(PasswordUpdateDTO passwordUpdateDTO) {
         // Récupérer l'utilisateur connecté
