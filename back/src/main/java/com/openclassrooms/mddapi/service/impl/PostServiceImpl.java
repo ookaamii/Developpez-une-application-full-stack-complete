@@ -10,6 +10,7 @@ import com.openclassrooms.mddapi.model.Topic;
 import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.repository.PostRepository;
 import com.openclassrooms.mddapi.repository.TopicRepository;
+import com.openclassrooms.mddapi.service.CommentService;
 import com.openclassrooms.mddapi.service.PostService;
 import com.openclassrooms.mddapi.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Implémentation de {@link PostService}.
+ */
 @Service
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
@@ -27,6 +31,9 @@ public class PostServiceImpl implements PostService {
     private final PostMapper postMapper;
     private final UserService userService;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public PostResponseDTO getPost(Long id) {
         // Récupérer l'article par son id
@@ -40,6 +47,9 @@ public class PostServiceImpl implements PostService {
         return postMapper.postToPostResponseDTO(post, username);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ResponseDTO create(PostRequestDTO postDTO) {
         // Convertir le DTO en Post
@@ -62,6 +72,9 @@ public class PostServiceImpl implements PostService {
         return new ResponseDTO("L'article a été créé avec succès !");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<PostResponseDTO> findAllByTopics(String sortDirection) {
         // Récupérer l'utilisateur authentifié

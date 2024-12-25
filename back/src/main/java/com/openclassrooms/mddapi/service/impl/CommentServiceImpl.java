@@ -17,6 +17,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Implémentation de {@link CommentService}.
+ */
 @Service
 @RequiredArgsConstructor
 public class CommentServiceImpl implements CommentService {
@@ -26,6 +29,9 @@ public class CommentServiceImpl implements CommentService {
     private final UserService userService;
     private final PostRepository postRepository;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<CommentResponseDTO> findAllByPostId(Long id) {
         // Récupérer tous les commentaires d'un article
@@ -41,6 +47,9 @@ public class CommentServiceImpl implements CommentService {
                 .toList();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ResponseDTO create(Long id, CommentRequestDTO commentDTO) {
         // Récupérer l'utilisateur authentifié

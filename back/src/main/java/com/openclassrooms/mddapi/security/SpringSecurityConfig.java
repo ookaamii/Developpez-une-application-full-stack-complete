@@ -1,5 +1,11 @@
 /**
- * Configuration pour la sécurité de l'application
+ * Configuration pour la sécurité de l'appli.
+ * Cette classe configure la sécurité de l'application en utilisant Spring Security.
+ * Elle gère :
+ * - La gestion des CORS.
+ * - La configuration des filtres de sécurité (ex. : JWT).
+ * - La stratégie de gestion des sessions (stateless).
+ * - L'encodage des mots de passe.
  */
 package com.openclassrooms.mddapi.security;
 
@@ -26,6 +32,9 @@ import java.util.List;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
+/**
+ * Configuration principale de la sécurité.
+ */
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -35,6 +44,21 @@ public class SpringSecurityConfig {
     private final JwtUtils jwtUtils;
     private final UserDetailsServiceImpl userDetailsServiceImpl;
 
+    /**
+     * Configure la chaîne de filtres de sécurité.
+     * Les fonctionnalités incluent :
+     * <ul>
+     *     <li>Désactivation de CSRF.</li>
+     *     <li>Configuration des CORS.</li>
+     *     <li>Politique de session stateless.</li>
+     *     <li>Ajout d'un filtre JWT pour l'authentification des requêtes.</li>
+     *     <li>Accès autorisé uniquement pour certaines routes publiques.</li>
+     * </ul>
+     *
+     * @param http L'objet {@link HttpSecurity} pour configurer la sécurité.
+     * @return La chaîne de filtres configurée.
+     * @throws Exception En cas de problème lors de la configuration.
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
@@ -48,6 +72,11 @@ public class SpringSecurityConfig {
                 .build();
     }
 
+    /**
+     * Configure les règles de CORS.
+     * Permet les requêtes provenant de certaines origines, avec des méthodes et en-têtes spécifiques.
+     * @return La source de configuration CORS.
+     */
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -61,6 +90,15 @@ public class SpringSecurityConfig {
         return source;
     }
 
+    /**
+     * Configure l'AuthenticationManager pour Spring Security.
+     * Utilise un service {@link UserDetailsServiceImpl} pour charger les utilisateurs
+     * et un {@link PasswordEncoder} pour encoder les mots de passe.
+     * @param http L'objet {@link HttpSecurity}.
+     * @param passwordEncoder L'encodeur de mot de passe.
+     * @return Le gestionnaire d'authentification configuré.
+     * @throws Exception En cas de problème lors de la configuration.
+     */
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http, PasswordEncoder passwordEncoder) throws Exception {
         AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
@@ -68,6 +106,11 @@ public class SpringSecurityConfig {
         return authenticationManagerBuilder.build();
     }
 
+    /**
+     * Définit un encodeur de mot de passe basé sur l'algorithme BCrypt.
+     *
+     * @return L'instance de {@link PasswordEncoder}.
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

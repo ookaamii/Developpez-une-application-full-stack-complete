@@ -12,10 +12,20 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
 
+/**
+ * Classe globale pour gérer les exceptions.
+ * Permet de capturer les exceptions et de renvoyer des réponses formatées avec un code et un message adaptés.
+ */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    // Erreur entité non trouvée
+    /**
+     * Gère les exceptions de type {@link NotFoundException}.
+     *
+     * @param e L'exception capturée.
+     * @param request La requête HTTP en cours.
+     * @return Une réponse HTTP avec un message d'erreur, le code 404, le path et la date.
+     */
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<ErrorResponse> handleNotFoundException(NotFoundException e, HttpServletRequest request) {
         ErrorResponse error = new ErrorResponse();
@@ -27,7 +37,13 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
-    // Erreur mauvaise requête 400
+    /**
+     * Gère les exceptions de type {@link BadRequestException}.
+     *
+     * @param e L'exception capturée.
+     * @param request La requête HTTP en cours.
+     * @return Une réponse HTTP avec un message d'erreur, le code 400, le path et la date.
+     */
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<ErrorResponse> handleBadRequestException(BadRequestException e, HttpServletRequest request) {
         ErrorResponse error = new ErrorResponse();
@@ -39,7 +55,13 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
-    // Erreur authentification 401
+    /**
+     * Gère les exceptions de type {@link UnauthorizedException}.
+     *
+     * @param e L'exception capturée.
+     * @param request La requête HTTP en cours.
+     * @return Une réponse HTTP avec un message d'erreur, le code 401, le path et la date.
+     */
     @ExceptionHandler(UnauthorizedException.class)
     public ResponseEntity<ErrorResponse> handleUnauthorizedException(UnauthorizedException e, HttpServletRequest request) {
         ErrorResponse error = new ErrorResponse();
@@ -51,7 +73,13 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
     }
 
-    // Autres erreurs - 500
+    /**
+     * Gère toutes les autres exceptions non spécifiées.
+     *
+     * @param e L'exception capturée.
+     * @param request La requête HTTP en cours.
+     * @return Une réponse HTTP avec un message générique, le code 500, le path et la date.
+     */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleException(Exception e, HttpServletRequest request) {
         ErrorResponse error = new ErrorResponse();

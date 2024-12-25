@@ -9,6 +9,7 @@ import com.openclassrooms.mddapi.model.Topic;
 import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.repository.SubscriptionRepository;
 import com.openclassrooms.mddapi.repository.TopicRepository;
+import com.openclassrooms.mddapi.service.CommentService;
 import com.openclassrooms.mddapi.service.SubscriptionService;
 import com.openclassrooms.mddapi.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
+/**
+ * Implémentation de {@link SubscriptionService}.
+ */
 @Service
 @RequiredArgsConstructor
 public class SubscriptionServiceImpl implements SubscriptionService {
@@ -26,6 +29,9 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     private final UserService userService;
     private final TopicMapper topicMapper;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ResponseDTO subTopic(Long id) {
         // Récupérer le thème à partir de l'id
@@ -48,6 +54,9 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         return new ResponseDTO("Vous vous êtes abonné avec succès !");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ResponseDTO unsubscribeTopic(Long id) {
         // Récupérer le thème à partir de l'id
@@ -63,6 +72,9 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         return new ResponseDTO("Vous vous êtes désabonné avec succès !");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<TopicDTO> findAllByUser() {
         // Récupérer l'utilisateur connecté
