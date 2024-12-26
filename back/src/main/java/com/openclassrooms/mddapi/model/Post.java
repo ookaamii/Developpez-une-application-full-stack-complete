@@ -34,8 +34,7 @@ public class Post {
     /**
      * Contenu de l'article qui ne doit pas être null et doit être en format texte
      */
-    @Lob
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
     /**
