@@ -31,8 +31,7 @@ public class Topic {
     /**
      * Description du thème qui ne doit pas être null et doit être en format texte
      */
-    @Lob
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
 
 }
