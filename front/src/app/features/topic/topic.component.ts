@@ -5,6 +5,7 @@ import { Topic } from '../../interfaces/topic.interface';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { BehaviorSubject, Observable, of, tap, catchError, finalize, map } from 'rxjs';
 
 @Component({
   selector: 'app-topic',
@@ -14,10 +15,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrl: './topic.component.scss'
 })
 export class TopicComponent implements OnInit {
-  topics: Topic[] = []; // Liste des topics
-  userSubscriptions: number[] = []; // Liste des IDs des abonnements utilisateur
-  isLoading: boolean = false; // Indicateur de chargement
-  errorMessage: string | null = null; // Gestion des erreurs
+  topics$: Observable<Topic[]> = of([]); // Liste des topics
+  userSubscriptions$ = new BehaviorSubject<number[]>([]); // Liste des IDs des abonnements utilisateur
+  public isLoading$ = new BehaviorSubject<boolean>(false); // Indicateur de chargement
+  public errorMessage$ = new BehaviorSubject<string | null>(null);
 
   constructor(
     private topicService: TopicService,
@@ -31,34 +32,33 @@ export class TopicComponent implements OnInit {
   }
 
   loadTopics(): void {
-    this.isLoading = true; // Active le spinner ou indique le chargement
-    this.topicService.findAll().subscribe({
-      next: (response: Topic[]) => {
-        this.topics = response; // Récupère les données
-        this.isLoading = false; // Désactive le chargement
-      },
-      error: (error) => {
-        this.errorMessage = 'Une erreur est survenue lors du chargement des thèmes.';
-        this.isLoading = false;
-      }
-    });
+    this.isLoading$.next(true); // Indique le chargement
+    this.topics$ = this.topicService.findAll().pipe(
+      finalize(() => this.isLoading$.next(false)), // Cela garantit que isLoading$ est mis à false après le chargement
+      catchError((error) => {
+        this.errorMessage$.next('Une erreur est survenue lors du chargement des thèmes.');
+        return of([]); // Retourne une liste vide en cas d'erreur
+      })
+    );
   }
 
   loadUserSubscriptions(): void {
     this.subscriptionService.findAllByUser().subscribe({
       next: (response) => {
-        this.userSubscriptions = response.map((subscription: any) => subscription.id); // Extraire les IDs des topics
+        const subscriptions = response.map((subscription: any) => subscription.id); // Extraire les IDs des topics
+        this.userSubscriptions$.next(subscriptions); // Met à jour la liste des abonnements
       },
       error: (err) => {
         console.error('Erreur lors de la récupération des abonnements utilisateur :', err);
+        this.userSubscriptions$.next([]); // En cas d'erreur, vide les abonnements
       }
     });
   }
   
+  // Vérifie si l'utilisateur est abonné au thème
   isSubscribed(topicId: number): boolean {
-    return this.userSubscriptions.includes(topicId);
+    return this.userSubscriptions$.getValue().includes(topicId);
   }
-  
 
   subscribe(topicId: number): void {
     this.subscriptionService.subscribe(topicId).subscribe({
@@ -68,7 +68,6 @@ export class TopicComponent implements OnInit {
         this.loadUserSubscriptions(); // Recharge les abonnements utilisateur
       },
       error: (err) => {
-        console.error('Erreur lors de l\'abonnement :', err);
         this.snackBar.open('Une erreur est survenue.', 'Fermer', { duration: 3000 });
       }
     });

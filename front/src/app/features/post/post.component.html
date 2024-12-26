@@ -1,9 +1,9 @@
 <div class="center">
-    <div *ngIf="errorMessage" class="error-message">
+    <div *ngIf="errorMessage | async" class="error-message">
         {{ errorMessage }}
     </div>
 
-    <div *ngIf="post" class="post-container">
+    <div *ngIf="post$ | async as post" class="post-container">
         <h2>
             <button mat-icon-button (click)="back()">
             <mat-icon>keyboard_backspace</mat-icon>

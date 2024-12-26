@@ -14,6 +14,7 @@ import { UserUpdateRequest } from '../../interfaces/userUpdateRequest.interface'
 import { PasswordUpdateRequest } from '../../interfaces/passwordUpdateRequest.interface';
 import { User } from '../../interfaces/user.interface';
 import { SubscriptionComponent } from './subscription/subscription.component';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-me',
@@ -23,7 +24,7 @@ import { SubscriptionComponent } from './subscription/subscription.component';
   styleUrl: './me.component.scss'
 })
 export class MeComponent {
-  me: User | null = null; // Info utilisateur
+  user$ = new BehaviorSubject<User | null>(null); // Info utilisateur
   errorMessage: string | null = null; // Gestion des erreurs
 
   public form = this.fb.group({
@@ -57,15 +58,15 @@ export class MeComponent {
   loadUser(): void {
     this.userService.getProfile().subscribe({
       next: (response: User) => {
-        this.me = response; // Récupère les données
-        // Met à jour les valeurs du formulaire
+        this.user$.next(response); // Met à jour les données utilisateur
+        // Met à jour le formulaire
         this.form.patchValue({
-          email: this.me.email,
-          username: this.me.username
+          email: response.email,
+          username: response.username
         });
       },
       error: (error) => {
-        this.errorMessage = 'Une erreur est survenue lors du chargement des articles.';
+        this.errorMessage = 'Une erreur est survenue lors du chargement des données utilisateur.';
       }
     });
   }

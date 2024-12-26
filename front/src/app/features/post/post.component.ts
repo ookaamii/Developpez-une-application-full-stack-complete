@@ -6,6 +6,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommentComponent } from './comment/comment.component';
 import { PostService } from '../../services/post.service';
 import { PostResponse } from '../../interfaces/postResponse.interface';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { catchError, switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-post',
@@ -15,8 +17,8 @@ import { PostResponse } from '../../interfaces/postResponse.interface';
   styleUrl: './post.component.scss'
 })
 export class PostComponent {
-  post: PostResponse | null = null; // Info du post
-  errorMessage: string | null = null; // Gestion des erreurs
+  public post$ = new Observable<PostResponse | null>; // Info du post
+  public errorMessage = new BehaviorSubject<string | null>(null);
   postId: number;
 
   constructor(
@@ -29,14 +31,12 @@ export class PostComponent {
   }
 
   loadPost(): void {
-    this.postService.getPost(this.postId).subscribe({
-      next: (response: PostResponse) => {
-        this.post = response; // Récupère les données
-      },
-      error: (error) => {
-        this.errorMessage = 'Article non trouvé.';
-      }
-    });
+    this.post$ = this.postService.getPost(this.postId).pipe(
+      catchError(error => {
+        this.errorMessage.next('Article non trouvé.');
+        return of(null);
+      })
+    );
   }
 
   public back() {
