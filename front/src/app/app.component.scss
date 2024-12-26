@@ -1,0 +1,70 @@
+/* Navbar classique (desktop) */
+.navbar {
+    border-bottom: 1px solid black;
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  
+    img {
+      width: 30vh;
+    }
+  
+    .nav-connexion {
+      font-size: 20px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      width: 80vh;
+  
+      img.img-account {
+        width: 14vh;
+        cursor: pointer;
+      }
+  
+      a {
+        &.active {
+          color: #7763c5;
+        }
+      }
+    }
+  }
+  
+  /* Menu burger (mobile) */
+  .mobile-navbar {
+    height: 100vh;
+
+    .profil-img {
+      position: absolute;
+      bottom: 0;
+
+      img.img-account {
+        width: 10vh;
+        vertical-align: bottom;
+      }
+    }
+  }
+  
+  .mat-sidenav {
+    width: 70%;
+    text-align: right;
+  }
+  
+  .mobile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+    border-bottom: 1px solid black;
+  
+    img {
+      width: 20vh;
+    }
+
+    button {
+      background: none !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+  }
+  

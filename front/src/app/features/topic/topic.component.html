@@ -1,0 +1,19 @@
+<div class="center">
+
+  <!-- Gestion du chargement -->
+  <div *ngIf="isLoading$ | async" class="spinner">Chargement...</div>
+
+  <!-- Gestion des erreurs -->
+  <div *ngIf="errorMessage$ | async as errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Liste des topics -->
+  <div class="topic-list">
+    <div *ngFor="let topic of (topics$ | async)" class="topic-vignette">
+      <h3>{{ topic.topic }}</h3>
+      <p>{{ topic.description | slice:0:95 }} ...</p>
+      <button *ngIf="!isSubscribed(topic.id)" mat-button class="sub" (click)="subscribe(topic.id)">S'abonner</button>
+    </div>
+  </div>  
+</div>

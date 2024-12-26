@@ -1,0 +1,30 @@
+<button mat-icon-button (click)="back()">
+    <mat-icon>keyboard_backspace</mat-icon>
+</button>
+
+<div class="center">
+    <img src="/assets/logo_p6.png" alt="logo" class="logo" />
+
+    <h1>Inscription</h1>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+        <label for="username">Nom d'utilisateur</label>
+        <input type="text" id="username" formControlName="username">
+        <label for="email">Adresse e-mail</label>
+        <input type="email" id="email" formControlName="email">
+        <label for="password">Mot de passe</label>
+        <input type="password" id="password" formControlName="password">
+        <mat-error *ngIf="form.get('password')?.invalid && (form.get('password')?.dirty || form.get('password')?.touched)">
+            Le mot de passe doit contenir au moins :
+            <ul>
+                <li [class.valid]="has8Caracteres()">Un minimum de 8 caractères</li>
+                <li [class.valid]="hasUpperCase()">Une lettre majuscule</li>
+                <li [class.valid]="hasLowerCase()">Une lettre minuscule</li>
+                <li [class.valid]="hasNumber()">Un chiffre</li>
+                <li [class.valid]="hasSpecialCharacter()">Un caractère spécial</li>
+              </ul>
+        </mat-error>
+
+        <button mat-stroked-button type="submit" class="submit" [disabled]="form.invalid">S'inscrire</button>
+    </form>
+</div>

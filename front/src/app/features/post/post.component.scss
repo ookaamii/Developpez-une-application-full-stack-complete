@@ -1,0 +1,42 @@
+.center {
+    width: 60%;
+    margin: 5em auto auto auto;
+
+    @media (max-width: 768px) {
+        width: 95%;
+        margin: 2em auto auto auto;
+    }
+
+    .post-container {
+
+        h2 {
+            font-weight: bold;
+
+            .mat-icon {
+                vertical-align: sub;
+            }
+        }
+
+        .infos {
+            display: flex;
+            flex-wrap: nowrap;
+
+            @media (max-width: 768px) {
+                flex-wrap: wrap;
+            }
+
+            span {
+                display: block;
+                margin-right: 7em;
+
+                @media (max-width: 768px) {
+                    margin-right: 4em;
+                }
+            }
+        }
+
+        p {
+            margin: 3em auto;
+        }
+    }
+}

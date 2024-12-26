@@ -1,0 +1,44 @@
+.center {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5em auto auto auto;
+
+    @media (max-width: 768px) {
+        padding: 1em;
+        width: auto;
+        margin: auto;
+    }
+
+    .topic-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2em;
+        justify-content: center;
+
+        .topic-vignette {
+            background-color: #f5f5f5;
+            padding: 2em;
+            border-radius: 1em;
+            width: 60vh;
+
+            @media (max-width: 768px) {
+                width: 85%;
+            }
+
+            h3 {
+                font-weight: bold;
+            }
+
+            .sub {
+                border-color: #7763c5;
+                background-color: #7763c5;
+                color: white;
+                display: block;
+                width: 20vh;
+                margin: auto;
+            }
+        }
+    }
+}

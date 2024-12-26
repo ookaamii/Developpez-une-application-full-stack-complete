@@ -1,0 +1,9 @@
+<!-- Navbar desktop -->
+<div class="navbar desktop-navbar">
+  <img src="/assets/logo_p6.png" alt="logo" />
+  <div class="nav-connexion" *ngIf="showNavCo">
+    <a routerLinkActive="active" routerLink="/posts">Articles</a>
+    <a routerLinkActive="active" routerLink="/topics">Thèmes</a>
+    <img [src]="imageUrl" routerLink="/me" class="img-account" alt="Compte">
+  </div>
+</div>

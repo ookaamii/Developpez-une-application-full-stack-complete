@@ -1,0 +1,28 @@
+<div class="center">
+    <div *ngIf="errorMessage | async" class="error-message">
+        {{ errorMessage }}
+    </div>
+
+    <div *ngIf="post$ | async as post" class="post-container">
+        <h2>
+            <button mat-icon-button (click)="back()">
+            <mat-icon>keyboard_backspace</mat-icon>
+          </button> {{ post.title }}
+        </h2>
+        <p class="infos">
+            <span>
+                {{ post.createdAt | date:'dd/MM/yyyy, h:mm a' }}
+            </span>
+            <span>
+                {{ post.user.username }}
+            </span>
+            <span>
+                {{ post.topic.topic }}
+            </span>
+        </p>
+        <p>Content: {{ post.content }}</p>
+
+        <HR>
+        <app-comment></app-comment>
+    </div>
+</div>

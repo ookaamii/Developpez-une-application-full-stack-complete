@@ -1,25 +1,50 @@
-# P6-Full-Stack-reseau-dev
+# MDD
 
-## Front
+![MDD](https://user.oc-static.com/upload/2022/10/13/1665694393136_P6_Banner.png)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.3.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.11. and Java version 17.
 
-Don't forget to install your node_modules before starting (`npm install`).
+## Start the project
 
-### Development server
+Git clone:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+>git clone https://github.com/ookaamii/Developpez-une-application-full-stack-complete.git;
 
-### Build
+Go inside folder front:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+> cd front;
 
-### Where to start
+Install dependencies:
 
-As you may have seen if you already started the app, a simple home page containing a logo, a title and a button is available. If you take a look at its code (in the `home.component.html`) you will see that an external UI library is already configured in the project.
+> npm install;
 
-This library is `@angular/material`, it's one of the most famous in the angular ecosystem. As you can see on their docs (https://material.angular.io/), it contains a lot of highly customizable components that will help you design your interfaces quickly.
+Launch Front-end:
 
-Note: I recommend to use material however it's not mandatory, if you prefer you can get ride of it.
+> ng serve;
 
-Good luck!
+
+
+Go inside folder back:
+
+> cd back
+
+Create .env file with parameters for application.properties file 
+
+Install dependencies:
+
+> mvn clean install;
+
+Launch Back-end:
+
+> mvn spring-boot:run;
+
+Read Javadoc:
+
+> mvn clean javadoc:javadoc;
+
+Go inside folder and open file : /back/target/site/apidocs/index.html
+
+
+Navigate to `http://localhost:4200/` and test your appli !
+
+

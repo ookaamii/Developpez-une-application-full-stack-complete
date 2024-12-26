@@ -2,3 +2,16 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+a { color: black; text-decoration: none ;}
+
+mat-sidenav-container, mat-sidenav-content, mat-sidenav {
+    height: 100%;
+}
+
+.mdc-notched-outline__leading, .mdc-notched-outline__notch, .mdc-notched-outline__trailing {
+    border-color: #7763c5 !important;
+}
+
+.mdc-text-field--outlined {
+    --mdc-outlined-text-field-container-shape: 12px !important;
+}

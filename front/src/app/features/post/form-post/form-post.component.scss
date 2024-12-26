@@ -1,0 +1,72 @@
+.center {
+    width: 70%;
+    margin: 5em auto auto auto;
+
+    @media (max-width: 768px) {
+        width: 100%;
+        margin: 2em auto auto auto;
+    }
+
+    .post-form {
+        margin: auto;
+        width: 40%;
+        text-align: center;
+
+        @media (max-width: 768px) {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2em;
+            justify-content: center;
+        }
+
+        h2 {
+            font-weight: bold;
+
+            .mat-icon {
+                vertical-align: sub;
+            }
+        }
+
+        form {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            margin: 4em auto;
+
+            @media (max-width: 768px) {
+                width: 85%;
+                margin: auto;
+            }
+
+            .textarea, textarea {
+                height: 30vh;
+            }
+
+            .submit {
+                border-color: #7763c5;
+                background-color: #7763c5;
+                color: white;
+                display: block;
+                width: 20vh;
+                margin: 4em auto auto auto;
+
+                @media (max-width: 768px) {
+                    margin-top: 2em;
+                }
+
+                &[disabled] {
+                    cursor: not-allowed;
+                    opacity: 0.5;
+                }
+            }
+
+            .mat-form-field {
+                stroke: #7763c5;
+                border-color: #7763c5;
+            }
+        }
+    }
+
+    
+}
