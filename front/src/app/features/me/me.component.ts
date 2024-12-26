@@ -26,6 +26,7 @@ import { BehaviorSubject } from 'rxjs';
 export class MeComponent {
   user$ = new BehaviorSubject<User | null>(null); // Info utilisateur
   errorMessage: string | null = null; // Gestion des erreurs
+  emailInitial: string = '';
 
   public form = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
@@ -64,6 +65,7 @@ export class MeComponent {
           email: response.email,
           username: response.username
         });
+        this.emailInitial = response.email;
       },
       error: (error) => {
         this.errorMessage = 'Une erreur est survenue lors du chargement des données utilisateur.';
@@ -76,8 +78,15 @@ export class MeComponent {
     this.userService.update(userUpdateRequest).subscribe({
       next: (response) => {
         this.snackBar.open(response.message, 'Fermer', { duration: 3000 }); // Notification
-        this.form.reset();
-        this.loadUser();
+        // Si l'utilisateur modifie son email, on le logout :
+        if(this.emailInitial !== userUpdateRequest.email) {
+          this.logout();
+        }
+        else {
+          // Sinon on reset le form et on recharge les données du profil
+          this.form.reset();
+          this.loadUser();
+        }
       },
       error: (error) => {
       }
