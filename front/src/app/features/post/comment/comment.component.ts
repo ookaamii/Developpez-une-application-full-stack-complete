@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { CommentService } from '../../../services/comment.service';
 import { CommentResponse } from '../../../interfaces/commentResponse.interface';
 import { CommentRequest } from '../../../interfaces/commentRequest.interface';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-comment',
@@ -19,7 +20,7 @@ import { CommentRequest } from '../../../interfaces/commentRequest.interface';
   styleUrl: './comment.component.scss'
 })
 export class CommentComponent {
-  comments: CommentResponse[] = []; // Liste des posts
+  comments$ = new BehaviorSubject<CommentResponse[]>([]); // Liste des posts
   isLoading: boolean = false; // Indicateur de chargement
   errorMessage: string | null = null; // Gestion des erreurs
   postId: number;
@@ -40,11 +41,11 @@ export class CommentComponent {
   }
 
   loadComments(): void {
-    this.isLoading = true; // Active le spinner ou indique le chargement
+    this.isLoading = true;
     this.commentService.findAllByPost(this.postId).subscribe({
       next: (response: CommentResponse[]) => {
-        this.comments = response; // Récupère les données
-        this.isLoading = false; // Désactive le chargement
+        this.comments$.next(response); // Met à jour les commentaires avec BehaviorSubject
+        this.isLoading = false;
       },
       error: (error) => {
         this.errorMessage = 'Une erreur est survenue lors du chargement des commentaires.';

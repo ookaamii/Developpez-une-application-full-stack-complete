@@ -5,6 +5,7 @@ import { Response } from '../../../interfaces/response.interface';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-subscription',
@@ -14,7 +15,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrl: './subscription.component.scss'
 })
 export class SubscriptionComponent {
-  topics: Topic[] = []; // Liste des topics
+  topics$ = new BehaviorSubject<Topic[]>([]);
   errorMessage: string | null = null; // Gestion des erreurs
 
   constructor(
@@ -29,7 +30,7 @@ export class SubscriptionComponent {
   loadTopics(): void {
     this.subscriptionService.findAllByUser().subscribe({
       next: (response: Topic[]) => {
-        this.topics = response; // Récupère les données
+        this.topics$.next(response); // Récupère les données
       },
       error: (error) => {
         this.errorMessage = 'Une erreur est survenue lors du chargement des thèmes.';

@@ -4,7 +4,7 @@
             Profil utilisateur
         </h2>
 
-        <form *ngIf="me" [formGroup]="form" (ngSubmit)="submit()">
+        <form *ngIf="user$ | async as user" [formGroup]="form" (ngSubmit)="submit()">
             <mat-form-field appearance="outline">
                 <input matInput formControlName="username" placeholder="Username">
             </mat-form-field>
@@ -16,7 +16,7 @@
             <button mat-stroked-button type="submit" class="submit" [disabled]="form.invalid">Sauvegarder</button>
         </form>
 
-        <form *ngIf="me" [formGroup]="formPassword" (ngSubmit)="submitPassword()">
+        <form *ngIf="user$ | async as user" [formGroup]="formPassword" (ngSubmit)="submitPassword()">
             <mat-form-field appearance="outline">
                 <input matInput formControlName="oldPassword" type="password" placeholder="Ancien mot de passe">
             </mat-form-field>

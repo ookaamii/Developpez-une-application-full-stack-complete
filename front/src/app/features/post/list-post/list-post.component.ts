@@ -5,53 +5,59 @@ import { PostResponse } from '../../../interfaces/postResponse.interface';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule, Router } from '@angular/router';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { catchError, switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-list-post',
   standalone: true,
   imports: [CommonModule, MatButtonModule, RouterModule, MatIconModule],
   templateUrl: './list-post.component.html',
-  styleUrl: './list-post.component.scss'
+  styleUrls: ['./list-post.component.scss']
 })
 export class ListPostComponent {
-  posts: PostResponse[] = []; // Liste des posts
-  isLoading: boolean = false; // Indicateur de chargement
-  errorMessage: string | null = null; // Gestion des erreurs
-  sort: string = 'desc';
-  arrowicon: string = 'arrow_downward';
+  private sortSubject = new BehaviorSubject<string>('desc');
+  public posts$: Observable<PostResponse[]>;
+  public isLoading = new BehaviorSubject<boolean>(true);
+  public errorMessage = new BehaviorSubject<string | null>(null);
+  public sortIcon = 'arrow_downward'; // Icône de tri
 
-  constructor(
-    private postService: PostService,
-    private router: Router
-  ) {}
-
-  ngOnInit(): void {
-    this.loadPosts(this.sort);
+  constructor(private postService: PostService, private router: Router) {
+    // Déclenchée à chaque changement du critère de tri
+    this.posts$ = this.sortSubject.pipe(
+      tap(() => {
+        // Active le chargement
+        this.isLoading.next(true); 
+        // Réinitialise tout message d'erreur précédent
+        this.errorMessage.next(null); 
+      }),
+      switchMap(sort => 
+        // Appel au service pour récupérer les articles en fonction du critère de tri
+        this.postService.findAllByPost(sort).pipe(
+          tap(() => this.isLoading.next(false)), // Désactive le chargement après la réponse
+          catchError(error => {
+            this.isLoading.next(false); 
+            this.errorMessage.next('Une erreur est survenue lors du chargement des articles.');
+            // Retourne un tableau vide pour permettre à l'Observable de continuer son exécution sans erreur
+            return of([]); 
+          })
+        )
+      )
+    );
   }
-
-  loadPosts(sort: string): void {
-    console.log(sort);
-    this.isLoading = true; // Active le spinner ou indique le chargement
-    this.postService.findAllByPost(sort).subscribe({
-      next: (response: PostResponse[]) => {
-        this.posts = response; // Récupère les données
-        this.isLoading = false; // Désactive le chargement
-      },
-      error: (error) => {
-        this.errorMessage = 'Une erreur est survenue lors du chargement des articles.';
-        this.isLoading = false;
-      }
-    });
+  
+  // Méthode pour alterner le critère de tri entre ascendant et descendant
+  changerSort(): void {
+    // Change le critère de tri actuel (asc ou desc)
+    const newSort = this.sortSubject.value === 'asc' ? 'desc' : 'asc';
+    // Change l'icône
+    this.sortIcon = newSort === 'asc' ? 'arrow_upward' : 'arrow_downward';
+    // Met à jour le sujet avec le nouveau critère de tri
+    this.sortSubject.next(newSort);
   }
-
-  detail(id: number) {
-    this.router.navigate(['/post/' + id]);
+  
+  // Méthode pour naviguer vers la page de détail d'un article en fonction de son ID
+  detail(id: number): void {
+    this.router.navigate(['/post', id]);
   }
-
-  changerSort() {
-    this.sort = (this.sort === 'asc' ? 'desc' : 'asc');
-    this.loadPosts(this.sort);
-    this.arrowicon = (this.sort === 'asc' ? 'arrow_upward' : 'arrow_downward');
-  }
-
 }

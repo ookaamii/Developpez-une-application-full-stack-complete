@@ -1,7 +1,7 @@
 <!-- Liste des commentaires -->
 <div class="comment-list" *ngIf="!isLoading && !errorMessage">
     Commentaires
-    <div *ngFor="let comment of comments" class="comment-vignette">
+    <div *ngFor="let comment of comments$ | async" class="comment-vignette">
         <span>{{ comment.author }}</span>
         <p>{{ comment.content }}</p>
     </div>
