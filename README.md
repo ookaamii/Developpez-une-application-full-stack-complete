@@ -38,6 +38,8 @@ Launch Back-end:
 
 > mvn spring-boot:run;
 
+You can create predefined data in database, such as topics and posts.
+
 Read Javadoc:
 
 > mvn clean javadoc:javadoc;
